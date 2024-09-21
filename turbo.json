@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "type-check": {
+      "outputs": ["*.tsbuildinfo"]
+    },
+    "build": {
+      "dependsOn": ["type-check"],
+      "outputs": ["dist/**", "public/**"],
+      "env": []
+    },
+    "lint": {
+      "outputs": [".eslintcache"],
+      "inputs": [".eslintrc.*", "src/**"]
+    },
+    "test": {
+      "outputs": ["node_modules/.vitest"],
+      "inputs": ["vitest.config.ts", "src/**"]
+    }
+  }
+}

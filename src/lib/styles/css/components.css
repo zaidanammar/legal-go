@@ -1,0 +1,58 @@
+/* Checkbox */
+.ant-checkbox-group {
+  display: inline-block;
+}
+
+/* Descriptions */
+.ant-descriptions-row > th {
+  padding-bottom: 2px !important;
+}
+
+.ant-descriptions-header {
+  margin-bottom: 12px;
+}
+
+.ant-descriptions-item-content {
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+}
+
+/* Form */
+.ant-form-item-label label {
+  font-weight: 500;
+}
+
+/* Tabs */
+.ant-tabs-nav {
+  margin-bottom: 16px !important;
+}
+
+.ant-tabs-card .ant-tabs-tab {
+  padding: 8.5px 16px !important;
+}
+
+/* Card */
+.ant-card {
+  margin-bottom: 20px;
+}
+
+/* Upload */
+.ant-upload-drag {
+  background: transparent !important;
+  border: 2px dashed #e6ebf1 !important;
+}
+
+/* Tag */
+.ant-tag {
+  font-weight: 500;
+  line-height: 25px;
+}
+
+/* Menu */
+.ant-menu-item-icon {
+  color: var(--ant-color-primary) !important;
+}
+
+.ant-menu-item-selected .ant-menu-title-content {
+  font-weight: 700;
+}
