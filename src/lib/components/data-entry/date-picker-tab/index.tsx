@@ -45,7 +45,7 @@ type DatePickertabProps = {
 };
 
 export const DatePickertab = ({
-  title = 'Ekspektasi Tanggal Pencairan',
+  title = '',
   onChange,
   startDateKey = 'start_date',
   endDateKey = 'end_date',
