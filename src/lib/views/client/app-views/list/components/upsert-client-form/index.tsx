@@ -88,6 +88,7 @@ export const UpsertClientForm = () => {
             </Typography.Title>
 
             <CloseOutlined
+              onClick={handleClose}
               style={{
                 color: '#FFF',
               }}
