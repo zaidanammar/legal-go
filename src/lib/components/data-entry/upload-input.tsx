@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 import { Can } from '@/lib/components/can';
 import { imageFileTypes } from '@/lib/constants/data/fileTypes';
 import { type AccessMenuKey } from '@/lib/services/api/access-menu-services/types';
-import { singleFile, multiFile } from '@/lib/utils/input/upload';
 
 import { InputItem, type InputItemProps } from './input-item';
 
@@ -64,7 +63,7 @@ export const UploadInput = ({
   return (
     <InputItem
       valuePropName="fileList"
-      getValueFromEvent={multiple ? multiFile : singleFile}
+      // getValueFromEvent={multiple ? multiFile : singleFile}
       extra={
         <>
           {extra}

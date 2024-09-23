@@ -12,7 +12,7 @@ export const tokenConfig: ThemeConfig['token'] = {
   colorWarning: '#ffc542',
   colorBorder: '#e6ebf1',
   colorLink: '#C42127',
-  controlHeight: 48,
+  controlHeight: 40,
   controlHeightSM: 40,
   controlHeightLG: 56,
   borderRadius: 6,

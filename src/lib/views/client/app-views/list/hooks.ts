@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { useQueryParams } from '@/lib/hooks/use-query-params';
 import { useTablePagination } from '@/lib/hooks/use-table-pagination';
+import { useModal } from '@/lib/providers/modal';
 import { useGetClientList } from '@/lib/services/api/client-services/get-list';
 import { type GetClientListParams } from '@/lib/services/api/client-services/get-list/types';
 import { cleanedObject } from '@/lib/utils/object/cleaned-object';
@@ -20,6 +21,8 @@ export const useClientListPage = () => {
   const { getSearchParamsValue } = useQueryParams();
   const tableMeta = useTablePagination();
   const { limit, offset } = tableMeta;
+
+  const { isModalOpen, handleClose, handleOpen: handleOpenModal } = useModal();
 
   const queryParams = useMemo<GetClientListParams>(() => {
     const filters = {
@@ -57,6 +60,9 @@ export const useClientListPage = () => {
     total,
     isLoading,
     tableMeta,
+    isModalOpen,
+    handleClose,
+    handleOpenModal,
   };
 };
 

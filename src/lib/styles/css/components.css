@@ -4,7 +4,7 @@
 }
 
 /* Descriptions */
-.ant-descriptions-row > th {
+.ant-descriptions-row>th {
   padding-bottom: 2px !important;
 }
 
@@ -55,4 +55,9 @@
 
 .ant-menu-item-selected .ant-menu-title-content {
   font-weight: 700;
+}
+
+/* Typography */
+.ant-typography {
+  margin-top: 0 !important;
 }
