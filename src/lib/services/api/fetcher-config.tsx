@@ -1,12 +1,11 @@
-import { message, notification } from 'antd';
+import { notification } from 'antd';
 import axios from 'axios';
 
 import { API_BASE_URL } from '@/lib/constants/api';
-import { isProduction } from '@/lib/constants/env';
 import { useAuth } from '@/lib/stores/auth';
 import { customParamsSerializer } from '@/lib/utils/url/params-serializer';
 
-import { DEFAULT_HEADERS, MESSAGE_RESPONSE_KEYS } from './constants';
+import { DEFAULT_HEADERS } from './constants';
 
 // const { clearAuth } = useAuth.getState();
 
@@ -66,39 +65,39 @@ service.interceptors.response.use(
     //   return Promise.reject(error);
     // }
 
-    const notificationParam = {
-      message: '',
-      description: '',
-    };
+    // const notificationParam = {
+    //   message: '',
+    //   description: '',
+    // };
 
-    const isRequestingResponseTypeAsBlob =
-      error.request.responseType === 'blob';
-    const responseHeader = isRequestingResponseTypeAsBlob
-      ? JSON.parse(await error.response.data.text())?.header
-      : error.response?.data.header;
+    // const isRequestingResponseTypeAsBlob =
+    //   error.request.responseType === 'blob';
+    // const responseHeader = isRequestingResponseTypeAsBlob
+    //   ? JSON.parse(await error.response.data.text())?.header
+    //   : error.response?.data.header;
 
-    notificationParam.message =
-      responseHeader?.detail ?? responseHeader?.message;
-    notificationParam.description = `Trace ID: ${responseHeader?.trace_id}`;
+    // notificationParam.message =
+    //   responseHeader?.detail ?? responseHeader?.message;
+    // notificationParam.description = `Trace ID: ${responseHeader?.trace_id}`;
 
-    const messageKey = MESSAGE_RESPONSE_KEYS[notificationParam.message] ?? '';
-    if (messageKey) {
-      message.error(messageKey);
-    } else {
-      message.open({
-        content: (
-          <>
-            <strong>{notificationParam.message}</strong>
-            {!isProduction ? (
-              <>
-                <br />
-                <span>{notificationParam.description}</span>
-              </>
-            ) : null}
-          </>
-        ),
-      });
-    }
+    // const messageKey = MESSAGE_RESPONSE_KEYS[notificationParam.message] ?? '';
+    // if (messageKey) {
+    //   message.error(messageKey);
+    // } else {
+    //   message.open({
+    //     content: (
+    //       <>
+    //         <strong>{notificationParam.message}</strong>
+    //         {!isProduction ? (
+    //           <>
+    //             <br />
+    //             <span>{notificationParam.description}</span>
+    //           </>
+    //         ) : null}
+    //       </>
+    //     ),
+    //   });
+    // }
 
     return Promise.reject(error);
   }
