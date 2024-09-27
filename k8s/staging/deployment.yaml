@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legalgo-frontend
+  namespace: altru-staging
+spec:
+  selector:
+    matchLabels:
+      app: legalgo-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: legalgo-frontend
+    spec:
+      serviceAccountName: custom-serviceaccount
+      containers:
+        - name: legalgo-frontend
+          image: registry.gitlab.com/altru.id/legalgo/legalgo-fe:<VERSION>
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
+
