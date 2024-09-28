@@ -3,16 +3,19 @@ import {
   UserOutlined,
   BookFilled,
   AuditOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons';
 import { type ItemType, type MenuItemType } from 'antd/es/menu/interface';
 
 import {
+  calendarMenuLabel,
   caseMenuLabel,
   clientMenuLabel,
   homeMenuLabel,
   orderMenuLabel,
 } from '@/lib/constants/menu-label';
 import {
+  calendarPath,
   casePath,
   clientPath,
   homePath,
@@ -56,9 +59,17 @@ export const caseMenu: NavigationMenuItemType = {
   path: casePath,
 };
 
+export const calendarMenu: NavigationMenuItemType = {
+  key: 'calendar',
+  label: calendarMenuLabel,
+  icon: <CalendarOutlined />,
+  path: calendarPath,
+};
+
 export const navigationMenus: Array<NavigationItem> = [
   homeMenu,
   clientMenu,
   orderMenu,
+  calendarMenu,
   caseMenu,
 ];

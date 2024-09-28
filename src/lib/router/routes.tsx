@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import type { PathRouteProps } from 'react-router-dom';
 
 import {
+  calendarPath,
   casePath,
   clientPath,
   homePath,
@@ -16,6 +17,7 @@ const HomePage = lazy(() => import('@/lib/views/home'));
 const ClientPage = lazy(() => import('@/lib/views/client'));
 const CasePage = lazy(() => import('@/lib/views/case'));
 const OrderPage = lazy(() => import('@/lib/views/order'));
+const CalendarPage = lazy(() => import('@/lib/views/calendar'));
 
 export const restrictedRoutes: Array<PathRouteProps> = [
   {
@@ -32,6 +34,10 @@ export const privateRoutes: Array<PathRouteProps> = [
   {
     path: homePath,
     element: <HomePage />,
+  },
+  {
+    path: calendarPath,
+    element: <CalendarPage />,
   },
   {
     path: clientPath,

@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@ant-design/plots": "1.2.5",
     "@fontsource-variable/noto-sans": "^5.0.5",
     "@fontsource-variable/plus-jakarta-sans": "^5.0.21",
     "antd": "^5.19.2",

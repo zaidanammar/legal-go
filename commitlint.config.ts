@@ -27,6 +27,9 @@ const commitlintConfiguration: UserConfig = {
         // features
         'auth',
         'client',
+        'case',
+        'dashboard',
+        'calendar',
       ],
     ],
   },
