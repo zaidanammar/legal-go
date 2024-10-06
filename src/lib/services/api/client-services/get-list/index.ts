@@ -10,7 +10,7 @@ export const useGetClientList = ({
   queryParams,
 }: UseGetClientListParams) =>
   useFetcher<GetClientListResponseData>({
-    path: '/client/get-list',
+    path: '/clients',
     config: {
       params: queryParams,
     },

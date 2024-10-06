@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
+import { homePath } from '@/lib/constants/routes';
 import { useAuth } from '@/lib/stores/auth';
 
 type PrivateRouteProps = {
@@ -9,7 +10,7 @@ type PrivateRouteProps = {
 
 export const RestrictedRoute = ({
   children,
-  redirectTo = '/home',
+  redirectTo = homePath,
 }: PrivateRouteProps) => {
   // add your own authentication logic here
   const token = useAuth((state) => state.token);

@@ -30,6 +30,7 @@ const commitlintConfiguration: UserConfig = {
         'case',
         'dashboard',
         'calendar',
+        'landing-page',
       ],
     ],
   },

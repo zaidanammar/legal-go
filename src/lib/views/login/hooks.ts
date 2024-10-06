@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueryParams } from '@/lib/hooks/use-query-params';
 import { useSubmitLogin } from '@/lib/services/api/user-services/authentication/login';
+import { type SubmitLoginRequest } from '@/lib/services/api/user-services/authentication/login/types';
 import { useAuth } from '@/lib/stores/auth';
 
 export const useLoginPage = () => {
@@ -11,15 +12,16 @@ export const useLoginPage = () => {
   const { getSearchParamsValue } = useQueryParams();
   const [form] = Form.useForm();
 
-  const { isMutating } = useSubmitLogin();
+  const { trigger: submitLogin, isMutating } = useSubmitLogin();
 
-  const handleLogin = async () => {
-    // const response = await submitLogin(data);
-    // setToken(response?.token || '');
-    setToken('fake-token');
-    setTimeout(() => {
-      navigate(getSearchParamsValue('redirectTo') ?? '/');
-    }, 10);
+  const handleLogin = async (formValues: SubmitLoginRequest) => {
+    const response = await submitLogin(formValues);
+    if (response?.token) {
+      setToken(response?.token || '');
+      setTimeout(() => {
+        navigate(getSearchParamsValue('redirectTo') ?? '/');
+      }, 10);
+    }
   };
 
   return {

@@ -12,7 +12,7 @@ export const caseListColumns: TableColumnsType<CaseEntry> = [
     dataIndex: 'idx',
   },
   {
-    title: 'No, Kasus',
+    title: 'No. Kasus',
     dataIndex: 'case_code',
   },
   {

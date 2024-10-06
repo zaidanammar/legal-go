@@ -1,4 +1,4 @@
-import { notification } from 'antd';
+import { message, notification } from 'antd';
 import axios from 'axios';
 
 import { API_BASE_URL } from '@/lib/constants/api';
@@ -7,9 +7,9 @@ import { customParamsSerializer } from '@/lib/utils/url/params-serializer';
 
 import { DEFAULT_HEADERS } from './constants';
 
-// const { clearAuth } = useAuth.getState();
+const { clearAuth } = useAuth.getState();
 
-// const unauthorizedCode = [401, 403];
+const unauthorizedCode = [401];
 
 export const service = axios.create({
   baseURL: API_BASE_URL,
@@ -60,44 +60,14 @@ service.interceptors.response.use(
   },
   async (error) => {
     // Remove token and redirect
-    // if (unauthorizedCode.includes(error.response.status)) {
-    //   clearAuth();
-    //   return Promise.reject(error);
-    // }
+    if (unauthorizedCode.includes(error.response.status)) {
+      clearAuth();
+      return Promise.reject(error);
+    }
 
-    // const notificationParam = {
-    //   message: '',
-    //   description: '',
-    // };
+    const err = error.response.data.message || 'Something went wrong';
 
-    // const isRequestingResponseTypeAsBlob =
-    //   error.request.responseType === 'blob';
-    // const responseHeader = isRequestingResponseTypeAsBlob
-    //   ? JSON.parse(await error.response.data.text())?.header
-    //   : error.response?.data.header;
-
-    // notificationParam.message =
-    //   responseHeader?.detail ?? responseHeader?.message;
-    // notificationParam.description = `Trace ID: ${responseHeader?.trace_id}`;
-
-    // const messageKey = MESSAGE_RESPONSE_KEYS[notificationParam.message] ?? '';
-    // if (messageKey) {
-    //   message.error(messageKey);
-    // } else {
-    //   message.open({
-    //     content: (
-    //       <>
-    //         <strong>{notificationParam.message}</strong>
-    //         {!isProduction ? (
-    //           <>
-    //             <br />
-    //             <span>{notificationParam.description}</span>
-    //           </>
-    //         ) : null}
-    //       </>
-    //     ),
-    //   });
-    // }
+    message.error(`Error: ${err}`);
 
     return Promise.reject(error);
   }

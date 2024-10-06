@@ -6,6 +6,7 @@ import {
   casePath,
   clientPath,
   homePath,
+  landingPagePath,
   loginPath,
   orderPath,
   registerPath,
@@ -18,6 +19,7 @@ const ClientPage = lazy(() => import('@/lib/views/client'));
 const CasePage = lazy(() => import('@/lib/views/case'));
 const OrderPage = lazy(() => import('@/lib/views/order'));
 const CalendarPage = lazy(() => import('@/lib/views/calendar'));
+const LandingPage = lazy(() => import('@/lib/views/landing-page'));
 
 export const restrictedRoutes: Array<PathRouteProps> = [
   {
@@ -27,6 +29,10 @@ export const restrictedRoutes: Array<PathRouteProps> = [
   {
     path: registerPath,
     element: <RegisterPage />,
+  },
+  {
+    path: landingPagePath,
+    element: <LandingPage />,
   },
 ];
 

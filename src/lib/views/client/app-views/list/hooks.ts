@@ -51,7 +51,7 @@ export const useClientListPage = () => {
       })),
     [offset, clientListData?.rows]
   );
-  const total = clientListData?.count ?? dummyData.length;
+  const total = clientListData?.total ?? dummyData.length;
 
   const isLoading = isLoadingClientList;
 

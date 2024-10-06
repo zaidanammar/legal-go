@@ -12,7 +12,7 @@ import { Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import { isInMaintenanceMode } from '@/lib/constants/env';
-import { homePath, loginPath } from '@/lib/constants/routes';
+import { landingPagePath, loginPath } from '@/lib/constants/routes';
 import { PageSkeleton } from '@/lib/layout/components/page-skeleton';
 import { RequireAuth } from '@/lib/router/require-auth';
 import { RestrictedRoute } from '@/lib/router/restricted-route';
@@ -57,7 +57,7 @@ export const Routings = () => {
             key={`privateRoute-${privateRouteProps.path}`}
           />
         ))}
-        <Route path="/" element={<Navigate replace to={homePath} />} />
+        <Route path="/" element={<Navigate replace to={landingPagePath} />} />
         <Route
           path="*"
           element={

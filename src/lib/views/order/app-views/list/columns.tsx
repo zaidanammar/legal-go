@@ -12,7 +12,7 @@ export const orderListColumns: TableColumnsType<OrderEntry> = [
     dataIndex: 'idx',
   },
   {
-    title: 'No, Pesanan',
+    title: 'No. Pesanan',
     dataIndex: 'case_code',
   },
   {

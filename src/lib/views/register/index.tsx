@@ -158,12 +158,12 @@ const RegisterPage = () => {
                     placeholder="Pilih Tipe Pengguna"
                   />
                 </InputItem>
-                <Divider style={{ marginTop: 8, marginBottom: 0 }} />
+                <Divider style={{ marginTop: 12, marginBottom: 0 }} />
 
                 <InputItem
                   fullWidth
                   name="user_type"
-                  label="Tipe Pengguna"
+                  label="Dari mana Anda mengetahui Aplikasi LegalGo?"
                   rules={[
                     {
                       required: true,
@@ -172,7 +172,7 @@ const RegisterPage = () => {
                 >
                   <SearchableSelect
                     size="small"
-                    placeholder="Pilih Tipe Pengguna"
+                    placeholder="Pilih Sumber Informasi"
                   />
                 </InputItem>
 

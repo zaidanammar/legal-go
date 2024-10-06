@@ -67,10 +67,13 @@ const LoginPage = () => {
                 <InputItem
                   fullWidth
                   name="email"
-                  label="Email/No. Telepon"
+                  label="Email"
                   rules={[
                     {
                       required: true,
+                    },
+                    {
+                      type: 'email',
                     },
                   ]}
                 >
