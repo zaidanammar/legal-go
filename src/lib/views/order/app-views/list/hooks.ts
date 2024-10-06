@@ -52,7 +52,7 @@ export const useOrderListPage = () => {
       })),
     [offset, orderListData?.rows]
   );
-  const total = orderListData?.count ?? dummyData.length;
+  const total = orderListData?.total ?? dummyData.length;
 
   const isLoading = isLoadingOrderList;
 

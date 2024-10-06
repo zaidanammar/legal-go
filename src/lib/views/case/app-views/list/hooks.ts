@@ -52,7 +52,7 @@ export const useCaseListPage = () => {
       })),
     [offset, caseListData?.rows]
   );
-  const total = caseListData?.count ?? dummyData.length;
+  const total = caseListData?.total ?? dummyData.length;
 
   const isLoading = isLoadingCaseList;
 
