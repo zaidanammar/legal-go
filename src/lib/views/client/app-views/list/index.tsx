@@ -45,7 +45,7 @@ const ClientListPage = () => {
           ],
         }}
         table={{
-          rowKey: 'client_id',
+          rowKey: 'ID',
           columns: clientListColumns,
           dataSource: data,
           loading: isLoading,

@@ -7,16 +7,6 @@ import { useGetClientList } from '@/lib/services/api/client-services/get-list';
 import { type GetClientListParams } from '@/lib/services/api/client-services/get-list/types';
 import { cleanedObject } from '@/lib/utils/object/cleaned-object';
 
-const dummyData = [
-  {
-    client_id: 'CL001',
-    client_name: 'John Doe',
-    birth_date: '1990-01-01',
-    category: 'Karyawan',
-    status: 'active',
-  },
-];
-
 export const useClientListPage = () => {
   const { getSearchParamsValue } = useQueryParams();
   const tableMeta = useTablePagination();
@@ -45,13 +35,13 @@ export const useClientListPage = () => {
 
   const data = useMemo(
     () =>
-      (clientListData?.rows ?? dummyData).map((entry, index) => ({
+      (clientListData?.rows ?? []).map((entry, index) => ({
         ...entry,
         idx: index + offset + 1,
       })),
     [offset, clientListData?.rows]
   );
-  const total = clientListData?.total ?? dummyData.length;
+  const total = clientListData?.total ?? 0;
 
   const isLoading = isLoadingClientList;
 

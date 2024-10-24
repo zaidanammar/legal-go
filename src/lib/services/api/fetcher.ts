@@ -6,6 +6,7 @@ import { service } from './fetcher-config';
 
 export type APIFetcherOriginRespParams = {
   path: string;
+  rootPath?: string;
   config?: AxiosRequestConfig;
 };
 

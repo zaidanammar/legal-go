@@ -13,10 +13,6 @@ export const useUpsertClientForm = () => {
   const [formValues, setFormValues] = useState({});
   const [currentStep, setCurrentStep] = useState(7);
 
-  //   const watch = Form.useWatch([], form);
-
-  //   console.log({ formValues });
-  //   console.log({ watch });
   return {
     form,
     isModalOpen,

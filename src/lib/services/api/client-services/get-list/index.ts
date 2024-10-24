@@ -1,3 +1,4 @@
+import { API_ROOT_PATH } from '@/lib/constants/api';
 import { useFetcher } from '@/lib/services/api/hooks';
 
 import {
@@ -10,6 +11,7 @@ export const useGetClientList = ({
   queryParams,
 }: UseGetClientListParams) =>
   useFetcher<GetClientListResponseData>({
+    rootPath: API_ROOT_PATH,
     path: '/clients',
     config: {
       params: queryParams,

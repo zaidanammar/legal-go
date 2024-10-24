@@ -28,22 +28,25 @@ type UseFetcherParams<ResDataType> = APIFetcherParams & {
 export const useFetcher = <ResDataType>({
   path,
   config,
+  rootPath,
   isReady = true,
   customFetcher,
   refreshInterval,
 }: UseFetcherParams<ResDataType>) => {
+  const fetchPath = rootPath ? `${rootPath}${path}` : path;
+
   const { data, isLoading, isValidating, error, mutate } = useSWR(
-    isReady ? [path, config] : null,
-    ([path, config]) => {
+    isReady ? [fetchPath, config] : null,
+    ([fetchPath, config]) => {
       if (customFetcher) {
         return customFetcher({
-          path,
+          path: fetchPath,
           config,
         });
       }
 
       return fetcher<ResDataType>({
-        path,
+        path: fetchPath,
         config,
       });
     },
@@ -70,13 +73,16 @@ export const useMutationFetcher = <ResDataType = unknown, ReqType = unknown>({
   path,
   config,
   customFetcher,
+  rootPath,
 }: UseMutationFetcherParams<ResDataType>) => {
+  const fetchPath = rootPath ? `${rootPath}${path}` : path; // Handle rootPath concatenation
+
   const { data, trigger, isMutating, reset } = useSWRMutation<
     ResDataType | undefined,
     AxiosError,
     string,
     ReqType
-  >(path, (_, { arg }) => {
+  >(fetchPath, (_, { arg }) => {
     const fetcherConfig: AxiosRequestConfig<ReqType> = {
       method: 'POST',
       data: arg,
@@ -85,13 +91,13 @@ export const useMutationFetcher = <ResDataType = unknown, ReqType = unknown>({
 
     if (customFetcher) {
       return customFetcher({
-        path,
+        path: fetchPath,
         config: fetcherConfig,
       });
     }
 
     return fetcher<ResDataType>({
-      path,
+      path: fetchPath,
       config: fetcherConfig,
     });
   });
@@ -116,14 +122,17 @@ export const useMutationFetcherOriginResp = <
   path,
   config,
   customFetcher,
+  rootPath,
   isResponseBlobFile,
 }: UseMutationFetcherOriginRespParams<ResDataType>) => {
+  const fetchPath = rootPath ? `${rootPath}${path}` : path;
+
   const { data, trigger, isMutating, reset } = useSWRMutation<
     AxiosResponse<ResDataType> | undefined,
     AxiosError,
     string,
     ReqType
-  >(path, (_, { arg }) => {
+  >(fetchPath, (_, { arg }) => {
     const fetcherConfig: AxiosRequestConfig<ReqType> = {
       data: arg,
       ...(isResponseBlobFile ? { responseType: 'blob' } : {}),
@@ -132,13 +141,13 @@ export const useMutationFetcherOriginResp = <
 
     if (customFetcher) {
       return customFetcher({
-        path,
+        path: fetchPath,
         config: fetcherConfig,
       });
     }
 
     return fetcherOriginResp<ResDataType>({
-      path,
+      path: fetchPath,
       config: fetcherConfig,
     });
   });

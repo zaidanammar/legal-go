@@ -10,7 +10,7 @@ export const useLoginPage = () => {
   const { setToken } = useAuth();
   const navigate = useNavigate();
   const { getSearchParamsValue } = useQueryParams();
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<SubmitLoginRequest>();
 
   const { trigger: submitLogin, isMutating } = useSubmitLogin();
 

@@ -15,10 +15,10 @@ export const clientListColumns: TableColumnsType<ClientEntry> = [
   },
   {
     title: 'Nama Klien',
-    render: (_, { client_name, client_id }) => (
+    render: (_, { ID, name }) => (
       <Flex vertical>
-        <Typography.Text>{client_name}</Typography.Text>
-        <Typography.Text type="secondary">{`ID: ${client_id}`}</Typography.Text>
+        <Typography.Text>{name}</Typography.Text>
+        <Typography.Text type="secondary">{`ID: ${ID}`}</Typography.Text>
       </Flex>
     ),
   },
@@ -44,13 +44,13 @@ export const clientListColumns: TableColumnsType<ClientEntry> = [
   {
     width: 250,
     fixed: 'right',
-    render: (_, { client_id }) => (
+    render: (_, { ID }) => (
       <Flex gap={12}>
         <Button type="primary" ghost size="small">
-          <Link to={`${clientPath}/view/${client_id}`}>Appointment</Link>
+          <Link to={`${clientPath}/view/${ID}`}>Appointment</Link>
         </Button>
         <Button type="primary" size="small">
-          <Link to={`${clientPath}/view/${client_id}`}>Lihat detail</Link>
+          <Link to={`${clientPath}/view/${ID}`}>Lihat detail</Link>
         </Button>
       </Flex>
     ),
