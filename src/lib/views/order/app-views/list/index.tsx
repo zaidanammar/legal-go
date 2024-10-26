@@ -20,11 +20,11 @@ const OrderListPage = () => {
         handleUpdateFilter: tableMeta.handleUpdateFilter,
         inputs: [
           {
-            label: 'Cari Pesanan',
+            label: 'Cari Kasus',
             inputProps: {
-              placeholder: 'Cari ID Pesanan',
+              placeholder: 'Cari Kasus',
               inputType: 'text',
-              paramKey: 'client_code',
+              paramKey: 'name',
               allowClear: true,
             },
           },
@@ -41,7 +41,7 @@ const OrderListPage = () => {
         ],
       }}
       table={{
-        rowKey: 'order_id',
+        rowKey: 'case_id',
         columns: orderListColumns,
         dataSource: data,
         loading: isLoading,

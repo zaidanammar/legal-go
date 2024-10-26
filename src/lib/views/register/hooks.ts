@@ -1,30 +1,48 @@
 import { Form } from 'antd';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryParams } from '@/lib/hooks/use-query-params';
-import { useSubmitLogin } from '@/lib/services/api/user-services/authentication/login';
-import { type SubmitLoginRequest } from '@/lib/services/api/user-services/authentication/login/types';
-import { useAuth } from '@/lib/stores/auth';
+import { loginPath } from '@/lib/constants/routes';
+import { useGetMasterDataList } from '@/lib/services/api/master-services/get-all';
+import { useSubmitSignup } from '@/lib/services/api/user-services/authentication/sign-up';
+import { type SubmitSignupRequest } from '@/lib/services/api/user-services/authentication/sign-up/types';
 
 export const useRegisterPage = () => {
-  const { setToken } = useAuth();
   const navigate = useNavigate();
-  const { getSearchParamsValue } = useQueryParams();
   const [form] = Form.useForm();
 
-  const { trigger: submitLogin, isMutating } = useSubmitLogin();
+  const { response: masterDataList, isLoading: isLoadingGetMasterData } =
+    useGetMasterDataList();
 
-  const handleRegister = async (data: SubmitLoginRequest) => {
-    const response = await submitLogin(data);
-    setToken(response?.token || '');
+  const { trigger: submitLogin, isMutating } = useSubmitSignup();
+
+  const handleRegister = async (data: SubmitSignupRequest) => {
+    await submitLogin(data);
     setTimeout(() => {
-      navigate(getSearchParamsValue('redirectTo') ?? '/');
+      navigate(loginPath);
     }, 10);
   };
+
+  const leadChannelOptions = useMemo(() => {
+    return (masterDataList?.lead_channels ?? []).map((item) => ({
+      label: item.value,
+      value: item.value,
+    }));
+  }, [masterDataList?.lead_channels]);
+
+  const clietTypeOptions = useMemo(() => {
+    return (masterDataList?.client_types ?? []).map((item) => ({
+      label: item.value,
+      value: item.value,
+    }));
+  }, [masterDataList?.client_types]);
 
   return {
     form,
     isMutating,
     handleRegister,
+    isLoadingGetMasterData,
+    leadChannelOptions,
+    clietTypeOptions,
   };
 };

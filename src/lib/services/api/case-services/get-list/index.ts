@@ -1,3 +1,4 @@
+import { API_ROOT_PATH } from '@/lib/constants/api';
 import { useFetcher } from '@/lib/services/api/hooks';
 
 import {
@@ -7,10 +8,12 @@ import {
 
 export const useGetCaseList = ({
   isReady,
+  isOrder,
   queryParams,
 }: UseGetCaseListParams) =>
   useFetcher<GetCaseListResponseData>({
-    path: '/case/get-list',
+    rootPath: API_ROOT_PATH,
+    path: isOrder ? '/cases/order' : '/cases',
     config: {
       params: queryParams,
     },

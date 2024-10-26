@@ -1,30 +1,24 @@
-import { Button } from 'antd';
-
 import { ListPage } from '@/lib/components/layout/list-page';
 import { caseMenuLabel } from '@/lib/constants/menu-label';
 import { caseListColumns } from '@/lib/views/case/app-views/list/columns';
 import { useCaseListPage } from '@/lib/views/case/app-views/list/hooks';
 
 const CaseListPage = () => {
-  const { tableMeta, data, total, isLoading } = useCaseListPage();
+  const { tableMeta, data, total, isLoading, statusOptions } =
+    useCaseListPage();
 
   return (
     <ListPage
       pageTitle={caseMenuLabel}
-      addButton={
-        <Button type="primary" size="small">
-          Buat Kasus
-        </Button>
-      }
       filter={{
         handleUpdateFilter: tableMeta.handleUpdateFilter,
         inputs: [
           {
             label: 'Cari Kasus',
             inputProps: {
-              placeholder: 'Cari ID Kasus',
+              placeholder: 'Cari Kasus',
               inputType: 'text',
-              paramKey: 'client_code',
+              paramKey: 'name',
               allowClear: true,
             },
           },
@@ -34,7 +28,7 @@ const CaseListPage = () => {
               placeholder: 'Pilih Status',
               inputType: 'select',
               paramKey: 'status',
-              options: [],
+              options: statusOptions,
               allowClear: true,
             },
           },

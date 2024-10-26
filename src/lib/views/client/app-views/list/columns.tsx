@@ -10,47 +10,51 @@ import { dateFormatter } from '@/lib/utils/date/date-formatter';
 export const clientListColumns: TableColumnsType<ClientEntry> = [
   {
     title: 'No.',
-    width: 80,
+    width: 60,
     dataIndex: 'idx',
   },
   {
     title: 'Nama Klien',
-    render: (_, { ID, name }) => (
+    width: 250,
+    render: (_, { id, name }) => (
       <Flex vertical>
         <Typography.Text>{name}</Typography.Text>
-        <Typography.Text type="secondary">{`ID: ${ID}`}</Typography.Text>
+        <Typography.Text type="secondary">{`ID: ${id}`}</Typography.Text>
       </Flex>
     ),
   },
   {
     title: 'Tanggal Lahir',
-    render: (_, { birth_date }) =>
+    width: 150,
+    render: (_, { created_at }) =>
       dateFormatter({
-        date: birth_date,
+        date: created_at,
         format: DATE_FORMAT_DD_MMM_YYYY,
         fallback: '-',
       }),
   },
   {
     title: 'Kategori',
-    dataIndex: 'category',
+    dataIndex: 'client_type',
+    width: 150,
   },
   {
     title: 'Status',
+    width: 150,
     render: (_, { status }) => (
-      <Tag color={status === 'active' ? 'green' : 'red'}>{status}</Tag>
+      <Tag color={status === 'ACTIVE' ? 'green' : 'red'}>{status}</Tag>
     ),
   },
   {
-    width: 250,
+    width: 230,
     fixed: 'right',
-    render: (_, { ID }) => (
+    render: (_, { id }) => (
       <Flex gap={12}>
         <Button type="primary" ghost size="small">
-          <Link to={`${clientPath}/view/${ID}`}>Appointment</Link>
+          <Link to={`${clientPath}/view/${id}`}>Appointment</Link>
         </Button>
         <Button type="primary" size="small">
-          <Link to={`${clientPath}/view/${ID}`}>Lihat detail</Link>
+          <Link to={`${clientPath}/view/${id}`}>Lihat detail</Link>
         </Button>
       </Flex>
     ),

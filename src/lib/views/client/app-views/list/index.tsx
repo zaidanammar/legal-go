@@ -9,7 +9,8 @@ import { useClientListPage } from '@/lib/views/client/app-views/list/hooks';
 
 const ClientListPage = () => {
   const viewModel = useClientListPage();
-  const { tableMeta, data, total, isLoading, handleOpenModal } = viewModel;
+  const { tableMeta, data, total, isLoading, handleOpenModal, statusOptions } =
+    viewModel;
 
   return (
     <ViewModelProvider {...viewModel}>
@@ -26,9 +27,9 @@ const ClientListPage = () => {
             {
               label: 'Cari Klien',
               inputProps: {
-                placeholder: 'Cari ID Klien',
+                placeholder: 'Cari Klien',
                 inputType: 'text',
-                paramKey: 'client_code',
+                paramKey: 'name',
                 allowClear: true,
               },
             },
@@ -38,14 +39,14 @@ const ClientListPage = () => {
                 placeholder: 'Pilih Status',
                 inputType: 'select',
                 paramKey: 'status',
-                options: [],
+                options: statusOptions,
                 allowClear: true,
               },
             },
           ],
         }}
         table={{
-          rowKey: 'ID',
+          rowKey: 'id',
           columns: clientListColumns,
           dataSource: data,
           loading: isLoading,

@@ -4,21 +4,8 @@ import { useQueryParams } from '@/lib/hooks/use-query-params';
 import { useTablePagination } from '@/lib/hooks/use-table-pagination';
 import { useGetCaseList } from '@/lib/services/api/case-services/get-list';
 import { type GetCaseListParams } from '@/lib/services/api/case-services/get-list/types';
+import { useGetMasterDataList } from '@/lib/services/api/master-services/get-all';
 import { cleanedObject } from '@/lib/utils/object/cleaned-object';
-
-const dummyData = [
-  {
-    case_id: 'CL001',
-    case_code: 'CL001',
-    case_name: 'John Doe',
-    category: 'Karyawan',
-    status: 'active',
-    client: {
-      client_id: 'CL001',
-      client_name: 'John Doe',
-    },
-  },
-];
 
 export const useCaseListPage = () => {
   const { getSearchParamsValue } = useQueryParams();
@@ -27,9 +14,8 @@ export const useCaseListPage = () => {
 
   const queryParams = useMemo<GetCaseListParams>(() => {
     const filters = {
-      case_code: getSearchParamsValue('case_code'),
-      case_name: getSearchParamsValue('case_name'),
-      case_status: getSearchParamsValue('case_status'),
+      name: getSearchParamsValue('name'),
+      status: getSearchParamsValue('status'),
     };
 
     return {
@@ -44,23 +30,34 @@ export const useCaseListPage = () => {
       queryParams,
     });
 
+  const { response: masterDataList, isLoading: isLoadingMasterDataList } =
+    useGetMasterDataList();
+
   const data = useMemo(
     () =>
-      (caseListData?.rows ?? dummyData).map((entry, index) => ({
+      (caseListData?.rows ?? []).map((entry, index) => ({
         ...entry,
         idx: index + offset + 1,
       })),
     [offset, caseListData?.rows]
   );
-  const total = caseListData?.total ?? dummyData.length;
+  const total = caseListData?.total ?? 0;
 
-  const isLoading = isLoadingCaseList;
+  const isLoading = isLoadingCaseList || isLoadingMasterDataList;
+
+  const statusOptions = useMemo(() => {
+    return (masterDataList?.user_statuses ?? []).map((item) => ({
+      label: item.value,
+      value: item.value,
+    }));
+  }, [masterDataList?.user_statuses]);
 
   return {
     data,
     total,
     isLoading,
     tableMeta,
+    statusOptions,
   };
 };
 

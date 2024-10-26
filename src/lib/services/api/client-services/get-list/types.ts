@@ -7,26 +7,23 @@ export type UseGetClientListParams = {
 };
 
 export type GetClientListParams = PaginatedRequest & {
-  client_code?: string;
-  client_name?: string;
+  name?: string;
   status?: string;
 };
 
 export type ClientEntry = {
-  ID: string;
-  company_name: string;
-  created_at: string;
-  email: string;
+  id: string;
   name: string;
+  email: string;
   password: string;
-  profile_image_url: string;
-  role_id: number;
-  status: string;
-  status_name: string;
-  tipe_pengguna: string;
-  updated_at: string;
   whatsapp_number: string;
-  birth_date: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  role: string;
+  client_type: string;
+  company_name: string;
+  lead_channels: string;
 };
 
 export type GetClientListResponseData = APIListResponseData<ClientEntry>;

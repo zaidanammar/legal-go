@@ -149,7 +149,13 @@ export const FilterList = ({
 
   return (
     <>
-      <Flex justify="space-between" align="center" gap={12} vertical={isMobile}>
+      <Flex
+        justify="space-between"
+        align="center"
+        gap={12}
+        vertical={isMobile}
+        flex={1}
+      >
         <Flex
           wrap="wrap"
           align="center"
@@ -208,7 +214,6 @@ export const FilterList = ({
       <Modal
         open={open}
         title={title}
-        centered
         onCancel={closeModal}
         width={isMobile ? '100vw' : '80vw'}
         footer={

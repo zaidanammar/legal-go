@@ -17,6 +17,11 @@ import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
 import { loginPath } from '@/lib/constants/routes';
 import { siteConfig } from '@/lib/constants/site-config';
+import {
+  emailValidation,
+  nameValidation,
+  phoneNumberValidation,
+} from '@/lib/constants/validations';
 
 import { useRegisterPage } from './hooks';
 
@@ -46,7 +51,14 @@ const useStyles = createStyles({
 
 const RegisterPage = () => {
   const { styles, cx } = useStyles();
-  const { form, isMutating, handleRegister } = useRegisterPage();
+  const {
+    form,
+    isMutating,
+    handleRegister,
+    isLoadingGetMasterData,
+    leadChannelOptions,
+    clietTypeOptions,
+  } = useRegisterPage();
 
   return (
     <div className={cx(styles.rootContainer)}>
@@ -71,29 +83,21 @@ const RegisterPage = () => {
             layout="vertical"
             className={styles.formWrapper}
           >
-            <Spin spinning={isMutating}>
+            <Spin spinning={isMutating || isLoadingGetMasterData}>
               <Space direction="vertical" size="small">
                 <InputItem
                   fullWidth
                   name="name"
                   label="Nama"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
+                  rules={nameValidation({ isRequired: true })}
                 >
                   <Input size="small" placeholder="Contoh: Alfhiyana" />
                 </InputItem>
                 <InputItem
                   fullWidth
-                  name="phone_number"
+                  name="whatsapp_number"
                   label="Nomor WhatsApp"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
+                  rules={phoneNumberValidation({ isRequired: true })}
                 >
                   <Input size="small" placeholder="Contoh: 08xxxxxxxxxx" />
                 </InputItem>
@@ -101,11 +105,7 @@ const RegisterPage = () => {
                   fullWidth
                   name="email"
                   label="Email"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
+                  rules={emailValidation({ isRequired: true })}
                 >
                   <Input
                     size="small"
@@ -145,7 +145,7 @@ const RegisterPage = () => {
                 </InputItem>
                 <InputItem
                   fullWidth
-                  name="user_type"
+                  name="client_type"
                   label="Tipe Pengguna"
                   rules={[
                     {
@@ -156,13 +156,14 @@ const RegisterPage = () => {
                   <SearchableSelect
                     size="small"
                     placeholder="Pilih Tipe Pengguna"
+                    options={clietTypeOptions}
                   />
                 </InputItem>
                 <Divider style={{ marginTop: 12, marginBottom: 0 }} />
 
                 <InputItem
                   fullWidth
-                  name="user_type"
+                  name="lead_channels"
                   label="Dari mana Anda mengetahui Aplikasi LegalGo?"
                   rules={[
                     {
@@ -173,15 +174,22 @@ const RegisterPage = () => {
                   <SearchableSelect
                     size="small"
                     placeholder="Pilih Sumber Informasi"
+                    options={leadChannelOptions}
                   />
                 </InputItem>
 
                 <InputItem
                   fullWidth
                   name="agree"
+                  valuePropName="checked"
                   rules={[
                     {
-                      required: true,
+                      validator: (_, value) =>
+                        value
+                          ? Promise.resolve()
+                          : Promise.reject(
+                              'Anda harus menyetujui syarat dan ketentuan terlebih dahulu'
+                            ),
                     },
                   ]}
                 >

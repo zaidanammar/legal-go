@@ -10,6 +10,7 @@ import {
   resetPasswordPath,
 } from '@/lib/constants/routes';
 import { siteConfig } from '@/lib/constants/site-config';
+import { emailValidation } from '@/lib/constants/validations';
 
 import { useLoginPage } from './hooks';
 
@@ -68,14 +69,7 @@ const LoginPage = () => {
                   fullWidth
                   name="email"
                   label="Email"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                    {
-                      type: 'email',
-                    },
-                  ]}
+                  rules={emailValidation({ isRequired: true })}
                 >
                   <Input
                     size="small"

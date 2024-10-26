@@ -8,34 +8,39 @@ import { type CaseEntry } from '@/lib/services/api/case-services/get-list/types'
 export const caseListColumns: TableColumnsType<CaseEntry> = [
   {
     title: 'No.',
-    width: 80,
+    width: 60,
     dataIndex: 'idx',
   },
   {
     title: 'No. Kasus',
-    dataIndex: 'case_code',
+    dataIndex: 'case_unique_id',
+    width: 150,
   },
   {
     title: 'Nama Klien',
-    render: (_, { client: { client_name, client_id } }) => (
+    width: 250,
+    render: (_, { user }) => (
       <Flex vertical>
-        <Typography.Text>{client_name}</Typography.Text>
-        <Typography.Text type="secondary">{`ID: ${client_id}`}</Typography.Text>
+        <Typography.Text>{user?.name}</Typography.Text>
+        <Typography.Text type="secondary">{`ID: ${user?.id}`}</Typography.Text>
       </Flex>
     ),
   },
   {
     title: 'Kasus',
-    dataIndex: 'case_name',
+    width: 200,
+    dataIndex: 'case',
   },
   {
     title: 'Kategori',
+    width: 150,
     dataIndex: 'category',
   },
   {
     title: 'Status',
+    width: 150,
     render: (_, { status }) => (
-      <Tag color={status === 'active' ? 'green' : 'red'}>{status}</Tag>
+      <Tag color={status === 'ACTIVE' ? 'green' : 'red'}>{status}</Tag>
     ),
   },
   {
