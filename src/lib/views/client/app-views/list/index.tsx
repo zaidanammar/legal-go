@@ -25,7 +25,7 @@ const ClientListPage = () => {
           handleUpdateFilter: tableMeta.handleUpdateFilter,
           inputs: [
             {
-              label: 'Cari Klien',
+              label: 'Klien',
               inputProps: {
                 placeholder: 'Cari Klien',
                 inputType: 'text',

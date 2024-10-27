@@ -65,9 +65,13 @@ service.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    const err = error.response.data.message || 'Something went wrong';
+    const errorMapping = error.response.data.errors.map(
+      (err: { detail: string }) => err.detail
+    );
 
-    message.error(`Error: ${err}`);
+    errorMapping.forEach((err: string) => {
+      message.error(`Error: ${err}`);
+    });
 
     return Promise.reject(error);
   }

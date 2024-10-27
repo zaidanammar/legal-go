@@ -14,7 +14,7 @@ const CaseListPage = () => {
         handleUpdateFilter: tableMeta.handleUpdateFilter,
         inputs: [
           {
-            label: 'Cari Kasus',
+            label: 'Kasus',
             inputProps: {
               placeholder: 'Cari Kasus',
               inputType: 'text',

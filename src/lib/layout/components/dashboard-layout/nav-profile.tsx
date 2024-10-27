@@ -1,12 +1,11 @@
-import { LockOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, Flex, Typography } from 'antd';
 import { createStyles } from 'antd-style';
 import { useNavigate } from 'react-router-dom';
 
 import { loginPath } from '@/lib/constants/routes';
-import { ChangePasswordModal } from '@/lib/layout/components/change-password-modal';
-import { useModal } from '@/lib/providers/modal';
 import { useAuth } from '@/lib/stores/auth';
+import { useUserStore } from '@/lib/stores/user';
 
 const useStyles = createStyles({
   avatar: {
@@ -30,9 +29,9 @@ const useStyles = createStyles({
 
 export const NavProfile = () => {
   const navigate = useNavigate();
-  const { handleOpen } = useModal();
   const { styles } = useStyles();
   const { clearAuth } = useAuth();
+  const { userDetail } = useUserStore();
 
   const handleLogout = () => {
     clearAuth();
@@ -45,12 +44,6 @@ export const NavProfile = () => {
       menu={{
         items: [
           {
-            icon: <LockOutlined />,
-            label: 'Ubah Password',
-            key: 'change-password',
-            onClick: handleOpen,
-          },
-          {
             icon: <LogoutOutlined />,
             label: 'Log Out',
             key: 'log-out',
@@ -61,13 +54,14 @@ export const NavProfile = () => {
     >
       <Flex align="center" gap={8}>
         <Flex vertical align="end" className={styles.profileInfo}>
-          <Typography.Text className={styles.userName}>Admin</Typography.Text>
+          <Typography.Text className={styles.userName}>
+            {userDetail?.name}
+          </Typography.Text>
           <Typography.Text className={styles.subtitle}>
-            Super Admin
+            {userDetail?.role}
           </Typography.Text>
         </Flex>
         <Avatar className={styles.avatar} icon={<UserOutlined />} />
-        <ChangePasswordModal />
       </Flex>
     </Dropdown>
   );

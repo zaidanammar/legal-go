@@ -1,5 +1,6 @@
 import { type PaginatedRequest } from '@/lib/models/api/base-request';
 import { type APIListResponseData } from '@/lib/models/api/base-response';
+import { type User } from '@/lib/models/api/user';
 
 export type UseGetCaseListParams = {
   isReady?: boolean;
@@ -27,7 +28,7 @@ export type CaseEntry = {
   user_id: string;
   user: User;
   pic_id: string;
-  pic: Pic;
+  pic: User;
 };
 
 export type Payment = {
@@ -39,38 +40,6 @@ export type Payment = {
   discount: number;
   schedule_at: string;
   sub_payments: string;
-};
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  whatsapp_number: string;
-  address: string;
-  status: string;
-  created_at: string;
-  updated_at: string;
-  role: string;
-  client_type: string;
-  company_name: string;
-  lead_channels: string;
-};
-
-export type Pic = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  whatsapp_number: string;
-  address: string;
-  status: string;
-  created_at: string;
-  updated_at: string;
-  role: string;
-  client_type: string;
-  company_name: string;
-  lead_channels: string;
 };
 
 export type GetCaseListResponseData = APIListResponseData<CaseEntry>;

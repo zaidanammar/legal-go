@@ -1,3 +1,4 @@
+import { API_ROOT_PATH } from '@/lib/constants/api';
 import { useFetcher } from '@/lib/services/api/hooks';
 
 import {
@@ -9,6 +10,7 @@ export const useGetCurrentUserDetail = (
   params?: UseGetCurrentUserDetailParams
 ) =>
   useFetcher<GetCurrentUserDetailResponseData>({
-    path: '/user/get',
+    rootPath: API_ROOT_PATH,
+    path: '/profile',
     isReady: params?.isReady,
   });
