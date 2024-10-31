@@ -2,28 +2,40 @@ import { Form } from 'antd';
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { getAllDefaultLimit } from '@/lib/constants/pagination';
 import { useViewModelContext } from '@/lib/providers/view-model';
 import { useGetCaseDetail } from '@/lib/services/api/case-services/get-detail';
 import { useSubmitUpsertCase } from '@/lib/services/api/case-services/upsert';
-import { useGetMasterDataList } from '@/lib/services/api/master-services/get-all';
+import { useGetClientList } from '@/lib/services/api/client-services/get-list';
 import { type UpsertClientFormType } from '@/lib/views/client/app-views/list/components/upsert-client-form/types';
 import { type ClientListPageViewModel } from '@/lib/views/client/app-views/list/hooks';
 
 export const useUpsertClientForm = () => {
-  const { isModalOpen, handleCloseModal, selectedCaseID, setSelectedCaseID } =
-    useViewModelContext<ClientListPageViewModel>();
+  const {
+    isModalOpen,
+    handleCloseModal,
+    selectedCaseID,
+    setSelectedCaseID,
+    masterDataList,
+  } = useViewModelContext<ClientListPageViewModel>();
 
   const [form] = Form.useForm<UpsertClientFormType>();
   const [currentStep, setCurrentStep] = useState(0);
+
+  const { response: clientListData, isLoading: isLoadingClientListData } =
+    useGetClientList({
+      queryParams: {
+        limit: getAllDefaultLimit,
+        offset: 0,
+      },
+      isReady: !!isModalOpen,
+    });
 
   const { response: caseDetailData, isLoading: isLoadingCaseDetailData } =
     useGetCaseDetail({
       caseID: selectedCaseID ?? '',
       isReady: !!(isModalOpen && selectedCaseID),
     });
-
-  const { response: masterDataList, isLoading: isLoadingGetMasterDataList } =
-    useGetMasterDataList();
 
   const { trigger: submitUpsertCase, isMutating: isLoadingSubmitUpsertCase } =
     useSubmitUpsertCase();
@@ -48,6 +60,13 @@ export const useUpsertClientForm = () => {
       value: item.value,
     }));
   }, [masterDataList?.case_types]);
+
+  const picOptions = useMemo(() => {
+    return (clientListData?.rows ?? []).map((item) => ({
+      label: item.name,
+      value: item.id,
+    }));
+  }, [clientListData]);
 
   const handleInitiateFormValues = useCallback(() => {
     if (!caseDetailData) return;
@@ -78,7 +97,7 @@ export const useUpsertClientForm = () => {
     handleInitiateFormValues();
   }, [handleInitiateFormValues]);
 
-  const isLoading = isLoadingCaseDetailData || isLoadingGetMasterDataList;
+  const isLoading = isLoadingCaseDetailData || isLoadingClientListData;
 
   return {
     form,
@@ -94,6 +113,7 @@ export const useUpsertClientForm = () => {
     isLoadingSubmitUpsertCase,
     selectedCaseID,
     setSelectedCaseID,
+    picOptions,
   };
 };
 

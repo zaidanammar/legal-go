@@ -1,4 +1,5 @@
 import {
+  type CaseAction,
   type Case,
   type Client,
 } from '@/lib/services/api/case-services/upsert/types';
@@ -6,17 +7,5 @@ import {
 export type UpsertClientFormType = {
   client: Client;
   case: Case;
-  // client_name: string;
-  // client_email: string;
-  // client_phone_number: string;
-  // client_type: string;
-  // client_company_name: string;
-  // client_address: string;
-  // case_id: string;
-  // case_category: string;
-  // case_name: string;
-  // case_type: string;
-  // date_of_case: string;
-  // pic_of_case: string;
-  // summary: string;
+  case_actions: Array<CaseAction>;
 };

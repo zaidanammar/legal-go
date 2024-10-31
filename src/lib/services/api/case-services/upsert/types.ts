@@ -29,11 +29,12 @@ export type Case = {
   started_at: Dayjs;
 };
 
-type CaseAction = {
+export type CaseAction = {
   case_id: string;
   service_name: string;
   service_type: string;
   pic_id: string;
+  scheduled_at: string;
 };
 
 type Payment = {

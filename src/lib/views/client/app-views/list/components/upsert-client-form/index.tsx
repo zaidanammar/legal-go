@@ -25,7 +25,20 @@ export const UpsertClientForm = () => {
         className="custom-modal"
         footer={null}
       >
-        <Form form={form} layout="vertical">
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={{
+            case_actions: [
+              {
+                service_name: '',
+                service_type: '',
+                pic_id: '',
+                scheduled_at: '',
+              },
+            ],
+          }}
+        >
           <Flex
             justify="space-between"
             align="center"

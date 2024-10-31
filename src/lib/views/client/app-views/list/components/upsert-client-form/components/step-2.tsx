@@ -8,14 +8,11 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import { useMemo } from 'react';
 
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
-import { getAllDefaultLimit } from '@/lib/constants/pagination';
 import { useViewModelContext } from '@/lib/providers/view-model';
 import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
-import { useGetClientList } from '@/lib/services/api/client-services/get-list';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep2 = () => {
@@ -28,22 +25,8 @@ export const UpsertClientFormStep2 = () => {
     submitUpsertCase,
     isLoadingSubmitUpsertCase,
     selectedCaseID,
+    picOptions,
   } = useViewModelContext<UpsertClientFormViewModel>();
-
-  const { response: clientListData, isLoading: isLoadingClientListData } =
-    useGetClientList({
-      queryParams: {
-        limit: getAllDefaultLimit,
-        offset: 0,
-      },
-    });
-
-  const picOptions = useMemo(() => {
-    return (clientListData?.rows ?? []).map((item) => ({
-      label: item.name,
-      value: item.id,
-    }));
-  }, [clientListData]);
 
   const handleSubmitFormStep2 = async () => {
     await form.validateFields();
@@ -141,11 +124,7 @@ export const UpsertClientFormStep2 = () => {
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
-          <SearchableSelect
-            placeholder="Pilih PIC"
-            options={picOptions}
-            loading={isLoadingClientListData}
-          />
+          <SearchableSelect placeholder="Pilih PIC" options={picOptions} />
         </InputItem>
       </Row>
 

@@ -1,3 +1,7 @@
+export type UseGetMasterDataListParams = {
+  isReady?: boolean;
+};
+
 export type MasterDataEntry = {
   case_categories: Array<MasterDataListEntry>;
   case_statuses: Array<MasterDataListEntry>;

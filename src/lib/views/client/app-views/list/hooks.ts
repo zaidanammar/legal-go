@@ -80,6 +80,7 @@ export const useClientListPage = () => {
     handleCloseModal,
     selectedCaseID,
     setSelectedCaseID,
+    masterDataList,
   };
 };
 

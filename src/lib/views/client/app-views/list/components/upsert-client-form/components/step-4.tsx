@@ -6,24 +6,42 @@ import {
   Flex,
   Form,
   Input,
+  message,
   Row,
   Typography,
 } from 'antd';
 
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
+import { DATE_FORMAT_YYYY_MM_DD } from '@/lib/constants/date';
 import { useViewModelContext } from '@/lib/providers/view-model';
+import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
+import { dateFormatter } from '@/lib/utils/date/date-formatter';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep4 = () => {
-  const { form, setCurrentStep } =
+  const { form, setCurrentStep, picOptions, selectedCaseID, submitUpsertCase } =
     useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep4 = async () => {
     await form.validateFields();
-    // const values = form.getFieldsValue();
+    const formValues = form.getFieldsValue();
 
+    const payload: Partial<SubmitUpsertCaseRequest> = {
+      case_actions: formValues.case_actions.map((item) => ({
+        ...item,
+        case_id: selectedCaseID ?? '',
+        scheduled_at: dateFormatter({
+          date: item.scheduled_at,
+          format: DATE_FORMAT_YYYY_MM_DD,
+          fallback: '',
+        }),
+      })),
+    };
+
+    await submitUpsertCase(payload);
     setCurrentStep(4);
+    message.success('Berhasil menyimpan data');
   };
 
   return (
@@ -32,14 +50,14 @@ export const UpsertClientFormStep4 = () => {
         Strategi & Formasi
       </Typography.Title>
       <Row>
-        <Form.List name="formation">
+        <Form.List name="case_actions">
           {(fields, { add, remove }) => {
             const handleAdd = () => {
               const newRow = {
-                legal_services: '',
-                legal_services_type: '',
-                legal_services_pic: '',
-                legal_services_schedule: '',
+                service_name: '',
+                service_type: '',
+                pic_id: '',
+                scheduled_at: '',
               };
               add(newRow);
             };
@@ -49,12 +67,17 @@ export const UpsertClientFormStep4 = () => {
             };
 
             return (
-              <div>
+              <div
+                style={{
+                  width: '100%',
+                }}
+              >
                 {fields.map((field) => (
                   <Row key={field.key} gutter={16} align="middle">
                     <InputItem
+                      fullWidth
                       label="Jasa Hukum"
-                      name={[field.name, 'legal_services']}
+                      name={[field.name, 'service_name']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -65,8 +88,9 @@ export const UpsertClientFormStep4 = () => {
                       <Input placeholder="Masukkan Jasa Hukum" />
                     </InputItem>
                     <InputItem
+                      fullWidth
                       label="Tipe Jasa"
-                      name={[field.name, 'legal_services_type']}
+                      name={[field.name, 'service_type']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -89,8 +113,9 @@ export const UpsertClientFormStep4 = () => {
                       />
                     </InputItem>
                     <InputItem
+                      fullWidth
                       label="PIC"
-                      name={[field.name, 'legal_services_pic']}
+                      name={[field.name, 'pic_id']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -100,21 +125,13 @@ export const UpsertClientFormStep4 = () => {
                     >
                       <SearchableSelect
                         placeholder="Pilih PIC"
-                        options={[
-                          {
-                            label: 'PIC 1',
-                            value: 'PIC 1',
-                          },
-                          {
-                            label: 'PIC 2',
-                            value: 'PIC 2',
-                          },
-                        ]}
+                        options={picOptions}
                       />
                     </InputItem>
                     <InputItem
+                      fullWidth
                       label="Schedule"
-                      name={[field.name, 'legal_services_schedule']}
+                      name={[field.name, 'scheduled_at']}
                       wrapperProps={{ span: 24, lg: 4 }}
                       rules={[
                         {
