@@ -12,6 +12,7 @@ export const UpsertClientFormStep3 = () => {
     setCurrentStep,
     submitUpsertCase,
     isLoadingSubmitUpsertCase,
+    selectedCaseID,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep3 = async () => {
@@ -20,6 +21,7 @@ export const UpsertClientFormStep3 = () => {
 
     const payload: Partial<SubmitUpsertCaseRequest> = {
       case: {
+        case_id: selectedCaseID ?? '',
         summary: formValues.case.summary,
       },
     };
