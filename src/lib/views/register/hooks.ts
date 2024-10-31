@@ -2,10 +2,12 @@ import { Form } from 'antd';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DATE_FORMAT_YYYY_MM_DD } from '@/lib/constants/date';
 import { loginPath } from '@/lib/constants/routes';
 import { useGetMasterDataList } from '@/lib/services/api/master-services/get-all';
 import { useSubmitSignup } from '@/lib/services/api/user-services/authentication/sign-up';
 import { type SubmitSignupRequest } from '@/lib/services/api/user-services/authentication/sign-up/types';
+import { dateFormatter } from '@/lib/utils/date/date-formatter';
 
 export const useRegisterPage = () => {
   const navigate = useNavigate();
@@ -17,7 +19,15 @@ export const useRegisterPage = () => {
   const { trigger: submitLogin, isMutating } = useSubmitSignup();
 
   const handleRegister = async (data: SubmitSignupRequest) => {
-    await submitLogin(data);
+    const payload = {
+      ...data,
+      birth_date: dateFormatter({
+        date: data.birth_date,
+        format: DATE_FORMAT_YYYY_MM_DD,
+        fallback: '',
+      }),
+    };
+    await submitLogin(payload);
     setTimeout(() => {
       navigate(loginPath);
     }, 10);
@@ -30,7 +40,7 @@ export const useRegisterPage = () => {
     }));
   }, [masterDataList?.lead_channels]);
 
-  const clietTypeOptions = useMemo(() => {
+  const clientTypeOptions = useMemo(() => {
     return (masterDataList?.client_types ?? []).map((item) => ({
       label: item.value,
       value: item.value,
@@ -43,6 +53,6 @@ export const useRegisterPage = () => {
     handleRegister,
     isLoadingGetMasterData,
     leadChannelOptions,
-    clietTypeOptions,
+    clientTypeOptions,
   };
 };

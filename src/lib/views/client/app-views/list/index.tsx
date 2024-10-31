@@ -17,7 +17,7 @@ const ClientListPage = () => {
       <ListPage
         pageTitle={clientMenuLabel}
         addButton={
-          <Button type="primary" size="small" onClick={handleOpenModal}>
+          <Button type="primary" size="small" onClick={() => handleOpenModal()}>
             Buat Klien
           </Button>
         }

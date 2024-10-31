@@ -1,3 +1,21 @@
+// import { Col, type ColProps } from 'antd';
+
+// export type ResponsiveColProps = ColProps & {
+//   fullWidth?: boolean;
+// };
+
+// export const ResponsiveCol = ({ fullWidth, ...props }: ResponsiveColProps) => {
+//   return (
+//     <Col
+//       span={fullWidth ? 24 : props.span}
+//       // md={fullWidth ? undefined : (props.md ?? 12)}
+//       // lg={fullWidth ? undefined : (props.lg ?? 8)}
+//       // xl={fullWidth ? undefined : (props.xl ?? 6)}
+//       {...props}
+//     />
+//   );
+// };
+
 import { Col, type ColProps } from 'antd';
 
 export type ResponsiveColProps = ColProps & {
@@ -7,10 +25,10 @@ export type ResponsiveColProps = ColProps & {
 export const ResponsiveCol = ({ fullWidth, ...props }: ResponsiveColProps) => {
   return (
     <Col
-      span={fullWidth ? 24 : props.span}
-      // md={fullWidth ? undefined : (props.md ?? 12)}
-      // lg={fullWidth ? undefined : (props.lg ?? 8)}
-      // xl={fullWidth ? undefined : (props.xl ?? 6)}
+      span={24}
+      md={fullWidth ? undefined : 12}
+      lg={fullWidth ? undefined : 8}
+      xl={fullWidth ? undefined : 6}
       {...props}
     />
   );

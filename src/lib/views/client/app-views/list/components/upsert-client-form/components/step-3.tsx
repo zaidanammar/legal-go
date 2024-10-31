@@ -1,37 +1,58 @@
-import { Button, Flex, Input, Row, Typography } from 'antd';
+import { Button, Flex, Input, message, Row, Spin, Typography } from 'antd';
 
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { useViewModelContext } from '@/lib/providers/view-model';
+import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep3 = () => {
-  const { form, setCurrentStep, setFormValues } =
-    useViewModelContext<UpsertClientFormViewModel>();
+  const {
+    form,
+    isLoading,
+    setCurrentStep,
+    submitUpsertCase,
+    isLoadingSubmitUpsertCase,
+  } = useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep3 = async () => {
     await form.validateFields();
-    const values = form.getFieldsValue();
+    const formValues = form.getFieldsValue();
 
-    setFormValues((prevState) => ({ ...prevState, ...values }));
+    const payload: Partial<SubmitUpsertCaseRequest> = {
+      case: {
+        summary: formValues.case.summary,
+      },
+    };
+
+    await submitUpsertCase(payload);
     setCurrentStep(3);
+    message.success('Berhasil menyimpan data');
   };
 
   return (
-    <>
+    <Spin spinning={isLoading}>
       <Typography.Title level={4} style={{ color: '#7D848C' }}>
         Summary Kasus
       </Typography.Title>
       <Row gutter={24}>
-        <InputItem fullWidth name="summary" rules={[{ required: true }]}>
+        <InputItem
+          fullWidth
+          name={['case', 'summary']}
+          rules={[{ required: true }]}
+        >
           <Input.TextArea rows={17} placeholder="Masukkan Summary Kasus" />
         </InputItem>
       </Row>
 
       <Flex justify="end" style={{ marginTop: 24 }}>
-        <Button onClick={handleSubmitFormStep3} type="primary">
+        <Button
+          onClick={handleSubmitFormStep3}
+          type="primary"
+          loading={isLoadingSubmitUpsertCase}
+        >
           Simpan Data
         </Button>
       </Flex>
-    </>
+    </Spin>
   );
 };

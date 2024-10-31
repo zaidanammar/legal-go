@@ -1,32 +1,82 @@
-import { Button, DatePicker, Flex, Input, Row, Typography } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Flex,
+  Input,
+  message,
+  Row,
+  Spin,
+  Typography,
+} from 'antd';
+import { useMemo } from 'react';
 
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
+import { getAllDefaultLimit } from '@/lib/constants/pagination';
 import { useViewModelContext } from '@/lib/providers/view-model';
+import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
+import { useGetClientList } from '@/lib/services/api/client-services/get-list';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep2 = () => {
-  const { form, setCurrentStep, setFormValues } =
-    useViewModelContext<UpsertClientFormViewModel>();
+  const {
+    form,
+    setCurrentStep,
+    caseCategoryOptions,
+    caseTypeOptions,
+    isLoading,
+    submitUpsertCase,
+    isLoadingSubmitUpsertCase,
+  } = useViewModelContext<UpsertClientFormViewModel>();
+
+  const { response: clientListData, isLoading: isLoadingClientListData } =
+    useGetClientList({
+      queryParams: {
+        limit: getAllDefaultLimit,
+        offset: 0,
+      },
+    });
+
+  const picOptions = useMemo(() => {
+    return (clientListData?.rows ?? []).map((item) => ({
+      label: item.name,
+      value: item.id,
+    }));
+  }, [clientListData]);
 
   const handleSubmitFormStep2 = async () => {
     await form.validateFields();
-    const values = form.getFieldsValue();
+    const formValues = form.getFieldsValue();
 
-    setFormValues((prevState) => ({ ...prevState, ...values }));
+    const payload: Partial<SubmitUpsertCaseRequest> = {
+      case: {
+        case: formValues.case.case,
+        case_unique_id: formValues.case.case_unique_id,
+        category: formValues.case.category,
+        pic_id: formValues.case.pic_id,
+        started_at: formValues.case.started_at,
+        type: formValues.case.type,
+        case_id: formValues.case.case_id,
+        summary: formValues.case.summary,
+      },
+    };
+
+    await submitUpsertCase(payload);
     setCurrentStep(2);
+    message.success('Berhasil menyimpan data');
   };
 
   return (
-    <>
+    <Spin spinning={isLoading}>
       <Typography.Title level={4} style={{ color: '#7D848C' }}>
         Data Kasus
       </Typography.Title>
       <Row gutter={24}>
         <InputItem
           required
-          name="case_id"
+          fullWidth
           label="ID Kasus"
+          name={['case', 'case_unique_id']}
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
@@ -34,29 +84,24 @@ export const UpsertClientFormStep2 = () => {
         </InputItem>
         <InputItem
           required
-          name="case_category"
+          fullWidth
           label="Kategori Kasus"
+          name={['case', 'category']}
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
           <SearchableSelect
             placeholder="Pilih Kategori Kasus"
-            options={[
-              {
-                label: 'Kategori 1',
-                value: 'Kategori 1',
-              },
-              {
-                label: 'Kategori 2',
-                value: 'Kategori 2',
-              },
-            ]}
+            options={caseCategoryOptions}
           />
         </InputItem>
+      </Row>
+      <Row gutter={24}>
         <InputItem
           required
-          name="case_name"
+          fullWidth
           label="Nama Kasus"
+          name={['case', 'case']}
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
@@ -64,23 +109,24 @@ export const UpsertClientFormStep2 = () => {
         </InputItem>
         <InputItem
           required
-          name="case_type"
+          fullWidth
           label="Tipe Kasus"
+          name={['case', 'type']}
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
           <SearchableSelect
             placeholder="Pilih Tipe Kasus"
-            options={[
-              { label: 'Tipe 1', value: 'Tipe 1' },
-              { label: 'Tipe 2', value: 'Tipe 2' },
-            ]}
+            options={caseTypeOptions}
           />
         </InputItem>
+      </Row>
+      <Row gutter={24}>
         <InputItem
           required
-          name="date_of_case"
+          fullWidth
           label="Tanggal Masuk"
+          name={['case', 'started_at']}
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
@@ -88,32 +134,29 @@ export const UpsertClientFormStep2 = () => {
         </InputItem>
         <InputItem
           required
+          fullWidth
           label="PIC"
-          name="pic_of_case"
+          name={['case', 'pic_id']}
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
           <SearchableSelect
             placeholder="Pilih PIC"
-            options={[
-              {
-                label: 'PIC 1',
-                value: 'PIC 1',
-              },
-              {
-                label: 'PIC 2',
-                value: 'PIC 2',
-              },
-            ]}
+            options={picOptions}
+            loading={isLoadingClientListData}
           />
         </InputItem>
       </Row>
 
       <Flex justify="end" style={{ marginTop: 24 }}>
-        <Button onClick={handleSubmitFormStep2} type="primary">
+        <Button
+          onClick={handleSubmitFormStep2}
+          type="primary"
+          loading={isLoadingSubmitUpsertCase}
+        >
           Simpan Data
         </Button>
       </Flex>
-    </>
+    </Spin>
   );
 };

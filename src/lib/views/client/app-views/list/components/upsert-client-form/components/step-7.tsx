@@ -4,14 +4,13 @@ import { useViewModelContext } from '@/lib/providers/view-model';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep7 = () => {
-  const { form, setCurrentStep, setFormValues } =
+  const { form, setCurrentStep } =
     useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep7 = async () => {
     await form.validateFields();
-    const values = form.getFieldsValue();
+    // const values = form.getFieldsValue();
 
-    setFormValues((prevState) => ({ ...prevState, ...values }));
     setCurrentStep(7);
   };
 

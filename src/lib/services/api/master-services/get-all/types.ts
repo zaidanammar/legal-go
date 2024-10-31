@@ -7,6 +7,7 @@ export type MasterDataEntry = {
   submission_statuses: Array<MasterDataListEntry>;
   user_statuses: Array<MasterDataListEntry>;
   user_types: Array<MasterDataListEntry>;
+  case_types: Array<MasterDataListEntry>;
 };
 
 export type MasterDataListEntry = {

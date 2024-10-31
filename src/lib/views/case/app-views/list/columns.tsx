@@ -3,7 +3,7 @@ import { type TableColumnsType } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { casePath } from '@/lib/constants/routes';
-import { type CaseEntry } from '@/lib/services/api/case-services/get-list/types';
+import { type CaseEntry } from '@/lib/services/api/case-services/types';
 
 export const caseListColumns: TableColumnsType<CaseEntry> = [
   {
@@ -44,8 +44,10 @@ export const caseListColumns: TableColumnsType<CaseEntry> = [
     ),
   },
   {
+    title: 'Aksi',
     width: 120,
     fixed: 'right',
+    align: 'center',
     render: (_, { case_id }) => (
       <Button type="primary" size="small">
         <Link to={`${casePath}/view/${case_id}`}>Lihat detail</Link>

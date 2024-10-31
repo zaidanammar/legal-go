@@ -2,6 +2,7 @@ import { UserOutlined } from '@ant-design/icons';
 import {
   Button,
   Checkbox,
+  DatePicker,
   Divider,
   Flex,
   Form,
@@ -57,7 +58,7 @@ const RegisterPage = () => {
     handleRegister,
     isLoadingGetMasterData,
     leadChannelOptions,
-    clietTypeOptions,
+    clientTypeOptions,
   } = useRegisterPage();
 
   return (
@@ -100,6 +101,18 @@ const RegisterPage = () => {
                   rules={phoneNumberValidation({ isRequired: true })}
                 >
                   <Input size="small" placeholder="Contoh: 08xxxxxxxxxx" />
+                </InputItem>
+                <InputItem
+                  fullWidth
+                  name="birth_date"
+                  label="Tanggal Lahir"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <DatePicker />
                 </InputItem>
                 <InputItem
                   fullWidth
@@ -156,7 +169,7 @@ const RegisterPage = () => {
                   <SearchableSelect
                     size="small"
                     placeholder="Pilih Tipe Pengguna"
-                    options={clietTypeOptions}
+                    options={clientTypeOptions}
                   />
                 </InputItem>
                 <Divider style={{ marginTop: 12, marginBottom: 0 }} />

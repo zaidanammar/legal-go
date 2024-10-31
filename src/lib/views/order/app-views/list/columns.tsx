@@ -3,7 +3,7 @@ import { type TableColumnsType } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { orderPath } from '@/lib/constants/routes';
-import { type CaseEntry } from '@/lib/services/api/case-services/get-list/types';
+import { type CaseEntry } from '@/lib/services/api/case-services/types';
 
 export const orderListColumns: TableColumnsType<CaseEntry> = [
   {
@@ -44,6 +44,7 @@ export const orderListColumns: TableColumnsType<CaseEntry> = [
     ),
   },
   {
+    title: 'Aksi',
     width: 120,
     fixed: 'right',
     render: (_, { case_id }) => (

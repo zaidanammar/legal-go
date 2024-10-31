@@ -3,63 +3,21 @@ import { Col, Flex, Form, Modal, Row, Typography } from 'antd';
 
 import { useBreakpointValue } from '@/lib/hooks/use-breakpoint-value';
 import { ViewModelProvider } from '@/lib/providers/view-model';
-import { UpsertClientFormStep1 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-1';
-import { UpsertClientFormStep2 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-2';
-import { UpsertClientFormStep3 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-3';
-import { UpsertClientFormStep4 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-4';
-import { UpsertClientFormStep5 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-5';
-import { UpsertClientFormStep6 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-6';
-import { UpsertClientFormStep7 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-7';
-import { UpsertClientFormStep8 } from '@/lib/views/client/app-views/list/components/upsert-client-form/components/step-8';
+import { CASE_FORM_STEPS } from '@/lib/views/client/app-views/list/components/upsert-client-form/constants';
 import { useUpsertClientForm } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 import './index.css';
 
-const formSteps = [
-  {
-    title: 'Data Klien',
-    content: <UpsertClientFormStep1 />,
-  },
-  {
-    title: 'Data Kasus',
-    content: <UpsertClientFormStep2 />,
-  },
-  {
-    title: 'Summary Kasus',
-    content: <UpsertClientFormStep3 />,
-  },
-  {
-    title: 'Strategi & Formasi',
-    content: <UpsertClientFormStep4 />,
-  },
-  {
-    title: 'Lampiran',
-    content: <UpsertClientFormStep5 />,
-  },
-  {
-    title: 'Proposal',
-    content: <UpsertClientFormStep6 />,
-  },
-  {
-    title: 'Signature',
-    content: <UpsertClientFormStep7 />,
-  },
-  {
-    title: 'Invoice',
-    content: <UpsertClientFormStep8 />,
-  },
-];
-
 export const UpsertClientForm = () => {
   const { isMobile } = useBreakpointValue();
   const viewModel = useUpsertClientForm();
-  const { currentStep, form, handleClose, isModalOpen, setCurrentStep } =
+  const { currentStep, form, handleCloseModal, isModalOpen, setCurrentStep } =
     viewModel;
 
   return (
     <ViewModelProvider {...viewModel}>
       <Modal
-        onCancel={handleClose}
+        onCancel={handleCloseModal}
         open={isModalOpen}
         closeIcon={null}
         width={isMobile ? '100vw' : '70vw'}
@@ -88,7 +46,7 @@ export const UpsertClientForm = () => {
             </Typography.Title>
 
             <CloseOutlined
-              onClick={handleClose}
+              onClick={handleCloseModal}
               style={{
                 color: '#FFF',
               }}
@@ -108,7 +66,7 @@ export const UpsertClientForm = () => {
                 Informasi Kasus
               </Typography.Title>
 
-              {formSteps.map((step, index) => (
+              {CASE_FORM_STEPS.map((step, index) => (
                 <Col
                   key={step.title}
                   style={{
@@ -116,13 +74,11 @@ export const UpsertClientForm = () => {
                       currentStep === index ? '#F1F2FC' : 'transparent',
                     padding: 16,
                   }}
-                  //   TODO: temporary disable onClick
-                  //   onClick={
-                  //     index < currentStep
-                  //       ? () => setCurrentStep(index)
-                  //       : () => undefined
-                  //   }
-                  onClick={() => setCurrentStep(index)}
+                  onClick={
+                    index < currentStep
+                      ? () => setCurrentStep(index)
+                      : () => undefined
+                  }
                 >
                   <Flex justify="space-between">
                     <Flex gap={16} align="center">
@@ -169,7 +125,7 @@ export const UpsertClientForm = () => {
                 padding: 16,
               }}
             >
-              {formSteps[currentStep].content}
+              {CASE_FORM_STEPS[currentStep].content}
             </Col>
           </Row>
         </Form>

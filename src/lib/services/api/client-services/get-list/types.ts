@@ -12,6 +12,9 @@ export type GetClientListParams = PaginatedRequest & {
   status?: string;
 };
 
-export type ClientEntry = User;
+export type ClientEntry = User & {
+  case_id: string;
+  submission_status: 'Submitted' | 'Draft';
+};
 
 export type GetClientListResponseData = APIListResponseData<ClientEntry>;

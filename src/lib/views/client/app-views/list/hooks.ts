@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useQueryParams } from '@/lib/hooks/use-query-params';
 import { useTablePagination } from '@/lib/hooks/use-table-pagination';
@@ -13,7 +13,9 @@ export const useClientListPage = () => {
   const tableMeta = useTablePagination();
   const { limit, offset } = tableMeta;
 
-  const { isModalOpen, handleClose, handleOpen: handleOpenModal } = useModal();
+  const [selectedCaseID, setSelectedCaseID] = useState<string | null>(null);
+
+  const { isModalOpen, handleClose, handleOpen } = useModal();
 
   const queryParams = useMemo<GetClientListParams>(() => {
     const filters = {
@@ -55,15 +57,28 @@ export const useClientListPage = () => {
     }));
   }, [masterDataList?.user_statuses]);
 
+  const handleOpenModal = (caseID?: string) => {
+    if (caseID) {
+      setSelectedCaseID(caseID);
+    }
+    handleOpen();
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCaseID(null);
+    handleClose();
+  };
+
   return {
     data,
     total,
     isLoading,
     tableMeta,
     isModalOpen,
-    handleClose,
-    handleOpenModal,
     statusOptions,
+    handleOpenModal,
+    handleCloseModal,
+    selectedCaseID,
   };
 };
 

@@ -1,11 +1,10 @@
-import { Button, Flex, Tag, Typography } from 'antd';
+import { Flex, Tag, Typography } from 'antd';
 import { type TableColumnsType } from 'antd';
-import { Link } from 'react-router-dom';
 
 import { DATE_FORMAT_DD_MMM_YYYY } from '@/lib/constants/date';
-import { clientPath } from '@/lib/constants/routes';
 import { type ClientEntry } from '@/lib/services/api/client-services/get-list/types';
 import { dateFormatter } from '@/lib/utils/date/date-formatter';
+import { UpsertClientCTAAction } from '@/lib/views/client/app-views/list/components/cta-actions';
 
 export const clientListColumns: TableColumnsType<ClientEntry> = [
   {
@@ -26,9 +25,9 @@ export const clientListColumns: TableColumnsType<ClientEntry> = [
   {
     title: 'Tanggal Lahir',
     width: 150,
-    render: (_, { created_at }) =>
+    render: (_, { birth_date }) =>
       dateFormatter({
-        date: created_at,
+        date: birth_date,
         format: DATE_FORMAT_DD_MMM_YYYY,
         fallback: '-',
       }),
@@ -40,23 +39,22 @@ export const clientListColumns: TableColumnsType<ClientEntry> = [
   },
   {
     title: 'Status',
-    width: 150,
+    width: 100,
     render: (_, { status }) => (
       <Tag color={status === 'ACTIVE' ? 'green' : 'red'}>{status}</Tag>
     ),
   },
   {
-    width: 230,
+    title: 'Aksi',
+    width: 200,
     fixed: 'right',
-    render: (_, { id }) => (
-      <Flex gap={12}>
-        <Button type="primary" ghost size="small">
-          <Link to={`${clientPath}/view/${id}`}>Appointment</Link>
-        </Button>
-        <Button type="primary" size="small">
-          <Link to={`${clientPath}/view/${id}`}>Lihat detail</Link>
-        </Button>
-      </Flex>
+    align: 'center',
+    render: (_, { id, case_id, submission_status }) => (
+      <UpsertClientCTAAction
+        clientID={id}
+        caseID={case_id}
+        submissionStatus={submission_status}
+      />
     ),
   },
 ];
