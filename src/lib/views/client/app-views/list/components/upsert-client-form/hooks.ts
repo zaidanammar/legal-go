@@ -10,7 +10,7 @@ import { type UpsertClientFormType } from '@/lib/views/client/app-views/list/com
 import { type ClientListPageViewModel } from '@/lib/views/client/app-views/list/hooks';
 
 export const useUpsertClientForm = () => {
-  const { isModalOpen, handleCloseModal, selectedCaseID } =
+  const { isModalOpen, handleCloseModal, selectedCaseID, setSelectedCaseID } =
     useViewModelContext<ClientListPageViewModel>();
 
   const [form] = Form.useForm<UpsertClientFormType>();
@@ -92,6 +92,8 @@ export const useUpsertClientForm = () => {
     caseCategoryOptions,
     caseTypeOptions,
     isLoadingSubmitUpsertCase,
+    selectedCaseID,
+    setSelectedCaseID,
   };
 };
 

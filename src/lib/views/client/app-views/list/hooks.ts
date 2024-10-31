@@ -79,6 +79,7 @@ export const useClientListPage = () => {
     handleOpenModal,
     handleCloseModal,
     selectedCaseID,
+    setSelectedCaseID,
   };
 };
 

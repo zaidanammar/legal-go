@@ -14,6 +14,7 @@ export const UpsertClientFormStep1 = () => {
     isLoading,
     clientTypeOptions,
     isLoadingSubmitUpsertCase,
+    setSelectedCaseID,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep1 = async () => {
@@ -32,11 +33,9 @@ export const UpsertClientFormStep1 = () => {
     };
 
     const data = await submitUpsertCase(payload);
-    form.setFieldsValue({
-      case: {
-        case_id: data?.case_id,
-      },
-    });
+    if (data?.case_id) {
+      setSelectedCaseID(data?.case_id);
+    }
 
     setCurrentStep(1);
     message.success('Berhasil menyimpan data');

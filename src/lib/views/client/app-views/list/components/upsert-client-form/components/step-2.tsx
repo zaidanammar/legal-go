@@ -27,6 +27,7 @@ export const UpsertClientFormStep2 = () => {
     isLoading,
     submitUpsertCase,
     isLoadingSubmitUpsertCase,
+    selectedCaseID,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
   const { response: clientListData, isLoading: isLoadingClientListData } =
@@ -50,13 +51,13 @@ export const UpsertClientFormStep2 = () => {
 
     const payload: Partial<SubmitUpsertCaseRequest> = {
       case: {
+        case_id: selectedCaseID ?? '',
         case: formValues.case.case,
         case_unique_id: formValues.case.case_unique_id,
         category: formValues.case.category,
         pic_id: formValues.case.pic_id,
         started_at: formValues.case.started_at,
         type: formValues.case.type,
-        case_id: formValues.case.case_id,
         summary: formValues.case.summary,
       },
     };
