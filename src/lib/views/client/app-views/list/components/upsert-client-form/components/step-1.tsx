@@ -14,6 +14,7 @@ export const UpsertClientFormStep1 = () => {
     isLoading,
     clientTypeOptions,
     isLoadingSubmitUpsertCase,
+    selectedCaseID,
     setSelectedCaseID,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
@@ -30,6 +31,11 @@ export const UpsertClientFormStep1 = () => {
         company_name: formValues.client.company_name,
         whatsapp_number: formValues.client.whatsapp_number,
       },
+      ...(selectedCaseID && {
+        case: {
+          case_id: selectedCaseID,
+        },
+      }),
     };
 
     const data = await submitUpsertCase(payload);
