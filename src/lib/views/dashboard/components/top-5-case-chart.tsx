@@ -2,31 +2,12 @@ import { Pie } from '@ant-design/plots';
 import { Flex, Typography } from 'antd';
 
 import { useBreakpointValue } from '@/lib/hooks/use-breakpoint-value';
+import { useViewModelContext } from '@/lib/providers/view-model';
+import { type DashboardPageViewModel } from '@/lib/views/dashboard/hooks';
 
 export const Top5CaseChart = () => {
   const { isMobile } = useBreakpointValue();
-  const sourceOfDonutChart = [
-    {
-      type: 'Pidana',
-      value: 104,
-    },
-    {
-      type: 'Perdata',
-      value: 78,
-    },
-    {
-      type: 'Perceraian',
-      value: 26,
-    },
-    {
-      type: 'Surat Tanah',
-      value: 22,
-    },
-    {
-      type: 'Surat Bisnis',
-      value: 18,
-    },
-  ];
+  const { dashboardData } = useViewModelContext<DashboardPageViewModel>();
 
   return (
     <div
@@ -41,16 +22,16 @@ export const Top5CaseChart = () => {
         <Typography.Title level={4}>Top 5 Kasus</Typography.Title>
       </Flex>
 
-      {sourceOfDonutChart?.length > 0 ? (
+      {dashboardData && dashboardData?.top_5_cases.length > 0 ? (
         <Pie
           height={185}
-          data={sourceOfDonutChart}
+          data={dashboardData.top_5_cases}
           color={['#00C3CC', '#FFBA07', '#F96D19', '#04D182', '#4C5CA0']}
           tooltip={{
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: (datum: any) => {
               return {
-                name: datum.type,
+                name: datum.category,
                 value: Intl.NumberFormat('id-ID').format(
                   datum.value.toFixed(0)
                 ),
@@ -68,7 +49,7 @@ export const Top5CaseChart = () => {
             },
           }}
           angleField="value"
-          colorField="type"
+          colorField="category"
           label={{
             type: 'inner',
             position: 'middle',

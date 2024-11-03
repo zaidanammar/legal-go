@@ -3,9 +3,11 @@ import { Image } from 'antd/lib';
 
 import graphicUpIcon from '/images/graphic-up.svg';
 
+import { FormatNumeric } from '@/lib/components/data-display/format-numeric';
+
 type DashboardBoxProps = {
   title: string;
-  value: string;
+  value: number;
   counterValue?: {
     individual: number;
     corporate: number;
@@ -55,7 +57,7 @@ export const DashboardBox = ({
               margin: 0,
             }}
           >
-            {value}
+            <FormatNumeric value={value} />
           </Typography.Title>
         </Flex>
       </Flex>

@@ -1,6 +1,6 @@
-import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
+import { useAppForm } from '@/lib/hooks/form/use-app-form';
 import { useQueryParams } from '@/lib/hooks/use-query-params';
 import { useSubmitLogin } from '@/lib/services/api/user-services/authentication/login';
 import { type SubmitLoginRequest } from '@/lib/services/api/user-services/authentication/login/types';
@@ -10,7 +10,7 @@ export const useLoginPage = () => {
   const { setToken } = useAuth();
   const navigate = useNavigate();
   const { getSearchParamsValue } = useQueryParams();
-  const [form] = Form.useForm<SubmitLoginRequest>();
+  const { form } = useAppForm<SubmitLoginRequest>();
 
   const { trigger: submitLogin, isMutating } = useSubmitLogin();
 

@@ -9,6 +9,7 @@ export const servicesPath = '/services';
 export const contactPath = '/contact-us';
 
 export const homePath = '/home';
+export const dashboardPath = '/dashboard';
 export const clientPath = '/client';
 export const orderPath = '/order';
 export const casePath = '/case';

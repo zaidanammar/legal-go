@@ -2,6 +2,11 @@ import { Button, Flex, Input, message, Row, Spin, Typography } from 'antd';
 
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
+import {
+  emailValidation,
+  nameValidation,
+  phoneNumberValidation,
+} from '@/lib/constants/validations';
 import { useViewModelContext } from '@/lib/providers/view-model';
 import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
@@ -54,16 +59,18 @@ export const UpsertClientFormStep1 = () => {
       </Typography.Title>
       <Row gutter={24}>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Nama Klien"
           name={['client', 'client_name']}
           wrapperProps={{ span: 24, lg: 12 }}
-          rules={[{ required: true }]}
+          rules={nameValidation({ isRequired: true })}
         >
           <Input placeholder="Masukkan Nama Klien" />
         </InputItem>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Tipe Klien"
@@ -80,16 +87,18 @@ export const UpsertClientFormStep1 = () => {
 
       <Row gutter={24}>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Nomor Telepon"
           name={['client', 'whatsapp_number']}
-          rules={[{ required: true }]}
+          rules={phoneNumberValidation({ isRequired: true })}
           wrapperProps={{ span: 24, lg: 12 }}
         >
           <Input placeholder="Masukkan Nomor Telepon" />
         </InputItem>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Nama Perusahaan"
@@ -103,16 +112,18 @@ export const UpsertClientFormStep1 = () => {
 
       <Row gutter={24}>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Email"
           name={['client', 'email']}
-          rules={[{ required: true }]}
+          rules={emailValidation({ isRequired: true })}
           wrapperProps={{ span: 24, lg: 12 }}
         >
           <Input placeholder="Masukkan Email" />
         </InputItem>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Alamat"

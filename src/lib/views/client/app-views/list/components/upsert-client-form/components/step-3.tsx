@@ -38,6 +38,7 @@ export const UpsertClientFormStep3 = () => {
       </Typography.Title>
       <Row gutter={24}>
         <InputItem
+          form={form}
           fullWidth
           name={['case', 'summary']}
           rules={[{ required: true }]}

@@ -1,35 +1,24 @@
-import { Form, type FormItemProps } from 'antd';
-import { type ReactNode } from 'react';
-
 import {
   ResponsiveCol,
   type ResponsiveColProps,
 } from '@/lib/components/layout/responsive-col';
 
-export type InputItemProps = FormItemProps &
+import { AppFormItem, type AppFormItemProps } from './app-form-item';
+
+export type InputItemProps<T = unknown> = AppFormItemProps<T> &
   Pick<ResponsiveColProps, 'fullWidth'> & {
     wrapperProps?: Omit<ResponsiveColProps, 'fullWidth'>;
-    extra?: ReactNode;
   };
 
-export const InputItem = ({
+export const InputItem = <T = unknown,>({
   children,
   wrapperProps,
   fullWidth,
-  extra,
   ...props
-}: InputItemProps) => {
+}: InputItemProps<T>) => {
   return (
     <ResponsiveCol fullWidth={fullWidth} {...wrapperProps}>
-      <Form.Item
-        {...props}
-        style={{
-          marginBottom: 0,
-        }}
-      >
-        {children}
-      </Form.Item>
-      {extra}
+      <AppFormItem {...props}>{children}</AppFormItem>
     </ResponsiveCol>
   );
 };

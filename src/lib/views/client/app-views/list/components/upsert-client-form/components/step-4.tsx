@@ -75,9 +75,10 @@ export const UpsertClientFormStep4 = () => {
                 {fields.map((field) => (
                   <Row key={field.key} gutter={16} align="middle">
                     <InputItem
+                      form={form}
                       fullWidth
                       label="Jasa Hukum"
-                      name={[field.name, 'service_name']}
+                      name={['case_actions', field.name, 'service_name']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -88,9 +89,10 @@ export const UpsertClientFormStep4 = () => {
                       <Input placeholder="Masukkan Jasa Hukum" />
                     </InputItem>
                     <InputItem
+                      form={form}
                       fullWidth
                       label="Tipe Jasa"
-                      name={[field.name, 'service_type']}
+                      name={['case_actions', field.name, 'service_type']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -113,9 +115,10 @@ export const UpsertClientFormStep4 = () => {
                       />
                     </InputItem>
                     <InputItem
+                      form={form}
                       fullWidth
                       label="PIC"
-                      name={[field.name, 'pic_id']}
+                      name={['case_actions', field.name, 'pic_id']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -129,9 +132,10 @@ export const UpsertClientFormStep4 = () => {
                       />
                     </InputItem>
                     <InputItem
+                      form={form}
                       fullWidth
                       label="Schedule"
-                      name={[field.name, 'scheduled_at']}
+                      name={['case_actions', field.name, 'scheduled_at']}
                       wrapperProps={{ span: 24, lg: 4 }}
                       rules={[
                         {

@@ -5,7 +5,7 @@ import {
   calendarPath,
   casePath,
   clientPath,
-  homePath,
+  dashboardPath,
   landingPagePath,
   loginPath,
   orderPath,
@@ -14,7 +14,7 @@ import {
 
 const LoginPage = lazy(() => import('@/lib/views/login'));
 const RegisterPage = lazy(() => import('@/lib/views/register'));
-const HomePage = lazy(() => import('@/lib/views/home'));
+const DashboardPage = lazy(() => import('@/lib/views/dashboard'));
 const ClientPage = lazy(() => import('@/lib/views/client'));
 const CasePage = lazy(() => import('@/lib/views/case'));
 const OrderPage = lazy(() => import('@/lib/views/order'));
@@ -38,23 +38,23 @@ export const restrictedRoutes: Array<PathRouteProps> = [
 
 export const privateRoutes: Array<PathRouteProps> = [
   {
-    path: homePath,
-    element: <HomePage />,
+    path: dashboardPath,
+    element: <DashboardPage />,
   },
   {
-    path: calendarPath,
+    path: `/${calendarPath}/*`,
     element: <CalendarPage />,
   },
   {
-    path: clientPath,
+    path: `/${clientPath}/*`,
     element: <ClientPage />,
   },
   {
-    path: casePath,
+    path: `/${casePath}/*`,
     element: <CasePage />,
   },
   {
-    path: orderPath,
+    path: `/${orderPath}/*`,
     element: <OrderPage />,
   },
 ];

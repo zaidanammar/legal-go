@@ -1,20 +1,6 @@
-import { DeleteFilled, PlusCircleOutlined } from '@ant-design/icons';
-import {
-  Button,
-  Checkbox,
-  Col,
-  DatePicker,
-  Flex,
-  Form,
-  Input,
-  Row,
-  Typography,
-} from 'antd';
+import { Button, Checkbox, Col, Flex, Typography } from 'antd';
 
 import { FormatNumeric } from '@/lib/components/data-display/format-numeric';
-import { InputItem } from '@/lib/components/data-entry/input-item';
-import { NumericFormatInput } from '@/lib/components/data-entry/numeric-format-input';
-import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
 import { useViewModelContext } from '@/lib/providers/view-model';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
@@ -34,7 +20,7 @@ export const UpsertClientFormStep8 = () => {
       <Typography.Title level={4} style={{ color: '#7D848C' }}>
         Invoice
       </Typography.Title>
-      <Row gutter={24}>
+      {/* <Row gutter={24}>
         <InputItem
           required
           name="termin"
@@ -205,7 +191,7 @@ export const UpsertClientFormStep8 = () => {
         >
           <NumericFormatInput placeholder="Masukkan Potongan" />
         </InputItem>
-      </Row>
+      </Row> */}
       <Flex justify="space-between" align="center" style={{ marginTop: 24 }}>
         <Col>
           <Typography.Text>Total</Typography.Text>

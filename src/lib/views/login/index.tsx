@@ -66,6 +66,7 @@ const LoginPage = () => {
             <Spin spinning={isMutating}>
               <Space direction="vertical" size="small">
                 <InputItem
+                  form={form}
                   fullWidth
                   name="email"
                   label="Email"
@@ -78,6 +79,7 @@ const LoginPage = () => {
                   />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="password"
                   label="Password"

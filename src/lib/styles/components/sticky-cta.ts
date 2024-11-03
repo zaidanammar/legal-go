@@ -3,8 +3,7 @@ import { type CSSObject } from 'antd-style';
 export const stickyContainerStyle: CSSObject = {
   position: 'sticky',
   bottom: 32,
-  margin: 10,
-  zIndex: 5,
+  zIndex: 2,
 };
 
 export const stickyButtonStyle: CSSObject = {

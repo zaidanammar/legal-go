@@ -1,11 +1,13 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Typography, Upload, type UploadProps, message } from 'antd';
+import { type FormInstance } from 'antd/lib';
 import { createStyles } from 'antd-style';
 import { useMemo } from 'react';
 
 import { Can } from '@/lib/components/can';
 import { imageFileTypes } from '@/lib/constants/data/fileTypes';
 import { type AccessMenuKey } from '@/lib/services/api/access-menu-services/types';
+import { multiFile, singleFile } from '@/lib/utils/input/upload';
 
 import { InputItem, type InputItemProps } from './input-item';
 
@@ -15,8 +17,8 @@ const useStyles = createStyles({
   },
 });
 
-type UploadInputProps = {
-  inputWrapper?: Omit<InputItemProps, 'multiple'>;
+type UploadInputProps<T = unknown> = {
+  inputWrapper?: Omit<InputItemProps<T>, 'multiple'>;
   uploadProps?: Omit<UploadProps, 'multiple'>;
   extra?: React.ReactNode;
   triggerLabel?: React.ReactNode;
@@ -40,7 +42,7 @@ const beforeUpload = (file: File, maxFileSize?: number) => {
   return false;
 };
 
-export const UploadInput = ({
+export const UploadInput = <T = unknown,>({
   inputWrapper,
   uploadProps,
   extra,
@@ -49,7 +51,7 @@ export const UploadInput = ({
   multiple = false,
   uploadAccessKey,
   showMaxFileSizeDescription = true,
-}: UploadInputProps) => {
+}: UploadInputProps<T>) => {
   const { styles } = useStyles();
   const filePickerTrigger = useMemo(
     () => (
@@ -62,8 +64,9 @@ export const UploadInput = ({
 
   return (
     <InputItem
+      form={inputWrapper?.form as FormInstance}
       valuePropName="fileList"
-      // getValueFromEvent={multiple ? multiFile : singleFile}
+      getValueFromEvent={multiple ? multiFile : singleFile}
       extra={
         <>
           {extra}

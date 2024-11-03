@@ -57,6 +57,7 @@ export const UpsertClientFormStep2 = () => {
       </Typography.Title>
       <Row gutter={24}>
         <InputItem
+          form={form}
           required
           fullWidth
           label="ID Kasus"
@@ -67,6 +68,7 @@ export const UpsertClientFormStep2 = () => {
           <Input placeholder="Masukkan ID Kasus" />
         </InputItem>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Kategori Kasus"
@@ -82,6 +84,7 @@ export const UpsertClientFormStep2 = () => {
       </Row>
       <Row gutter={24}>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Nama Kasus"
@@ -92,6 +95,7 @@ export const UpsertClientFormStep2 = () => {
           <Input placeholder="Masukkan Nama Kasus" />
         </InputItem>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Tipe Kasus"
@@ -107,6 +111,7 @@ export const UpsertClientFormStep2 = () => {
       </Row>
       <Row gutter={24}>
         <InputItem
+          form={form}
           required
           fullWidth
           label="Tanggal Masuk"
@@ -117,6 +122,7 @@ export const UpsertClientFormStep2 = () => {
           <DatePicker placeholder="Pilih Tanggal Masuk" />
         </InputItem>
         <InputItem
+          form={form}
           required
           fullWidth
           label="PIC"

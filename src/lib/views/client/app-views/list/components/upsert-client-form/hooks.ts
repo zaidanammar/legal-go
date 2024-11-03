@@ -1,8 +1,8 @@
-import { Form } from 'antd';
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { getAllDefaultLimit } from '@/lib/constants/pagination';
+import { useAppForm } from '@/lib/hooks/form/use-app-form';
 import { useViewModelContext } from '@/lib/providers/view-model';
 import { useGetCaseDetail } from '@/lib/services/api/case-services/get-detail';
 import { useSubmitUpsertCase } from '@/lib/services/api/case-services/upsert';
@@ -19,7 +19,7 @@ export const useUpsertClientForm = () => {
     masterDataList,
   } = useViewModelContext<ClientListPageViewModel>();
 
-  const [form] = Form.useForm<UpsertClientFormType>();
+  const { form } = useAppForm<UpsertClientFormType>();
   const [currentStep, setCurrentStep] = useState(0);
 
   const { response: clientListData, isLoading: isLoadingClientListData } =

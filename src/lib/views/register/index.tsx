@@ -87,6 +87,7 @@ const RegisterPage = () => {
             <Spin spinning={isMutating || isLoadingGetMasterData}>
               <Space direction="vertical" size="small">
                 <InputItem
+                  form={form}
                   fullWidth
                   name="name"
                   label="Nama"
@@ -95,6 +96,7 @@ const RegisterPage = () => {
                   <Input size="small" placeholder="Contoh: Alfhiyana" />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="whatsapp_number"
                   label="Nomor WhatsApp"
@@ -103,6 +105,7 @@ const RegisterPage = () => {
                   <Input size="small" placeholder="Contoh: 08xxxxxxxxxx" />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="birth_date"
                   label="Tanggal Lahir"
@@ -115,6 +118,7 @@ const RegisterPage = () => {
                   <DatePicker />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="email"
                   label="Email"
@@ -127,6 +131,7 @@ const RegisterPage = () => {
                   />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="password"
                   label="Password"
@@ -142,6 +147,7 @@ const RegisterPage = () => {
                   />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="confirm_password"
                   label="Konfirmasi Password"
@@ -157,6 +163,7 @@ const RegisterPage = () => {
                   />
                 </InputItem>
                 <InputItem
+                  form={form}
                   fullWidth
                   name="client_type"
                   label="Tipe Pengguna"
@@ -175,6 +182,7 @@ const RegisterPage = () => {
                 <Divider style={{ marginTop: 12, marginBottom: 0 }} />
 
                 <InputItem
+                  form={form}
                   fullWidth
                   name="lead_channels"
                   label="Dari mana Anda mengetahui Aplikasi LegalGo?"
@@ -192,8 +200,9 @@ const RegisterPage = () => {
                 </InputItem>
 
                 <InputItem
+                  form={form}
                   fullWidth
-                  name="agree"
+                  name="agreement"
                   valuePropName="checked"
                   rules={[
                     {

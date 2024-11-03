@@ -11,6 +11,7 @@ export type UseGetCaseListParams = {
 export type GetCaseListParams = PaginatedRequest & {
   name?: string;
   status?: string;
+  client_id?: string;
 };
 
 export type GetCaseListResponseData = APIListResponseData<CaseEntry>;

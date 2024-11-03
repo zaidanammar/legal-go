@@ -77,7 +77,7 @@ export type InputDefinition = {
     | DatePickerInputProps
     | DateRangePickerInputProps
     | NumericInputProps;
-} & InputItemProps &
+} & Omit<InputItemProps, 'form'> &
   InputFilterDefinition;
 
 export type InputGridProps = {
@@ -108,13 +108,18 @@ export const InputGrid = ({ inputs, rowProps }: InputGridProps) => {
 
           return (
             <InputItem
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              form={undefined as any}
               wrapperProps={{
                 xs: 24 / (columns?.xs || 1),
                 md: 24 / (columns?.md || 2),
                 lg: 24 / (columns?.lg || 3),
                 xl: 24 / (columns?.xl || 4),
               }}
-              key={formItemProps.label ?? formItemProps.name}
+              key={
+                (formItemProps.label as string) ??
+                (formItemProps.name as string)
+              }
               fullWidth={fullWidth ?? true}
               {...formItemProps}
             >

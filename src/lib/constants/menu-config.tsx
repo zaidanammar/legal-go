@@ -11,14 +11,14 @@ import {
   calendarMenuLabel,
   caseMenuLabel,
   clientMenuLabel,
-  homeMenuLabel,
+  dashboardMenuLabel,
   orderMenuLabel,
 } from '@/lib/constants/menu-label';
 import {
   calendarPath,
   casePath,
   clientPath,
-  homePath,
+  dashboardPath,
   orderPath,
 } from '@/lib/constants/routes';
 import { type AccessMenuKey } from '@/lib/services/api/access-menu-services/types';
@@ -32,10 +32,10 @@ export type NavigationMenuItemType = {
 export type NavigationItem = NonNullable<ItemType<NavigationMenuItemType>>;
 
 export const homeMenu: NavigationMenuItemType = {
-  key: 'home',
-  label: homeMenuLabel,
+  key: 'dashboard',
+  label: dashboardMenuLabel,
   icon: <HomeFilled />,
-  path: homePath,
+  path: dashboardPath,
 };
 
 export const clientMenu: NavigationMenuItemType = {

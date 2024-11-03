@@ -7,6 +7,7 @@ export type SubmitSignupRequest = {
   whatsapp_number: string;
   lead_channels: string;
   client_type: string;
+  agreement: boolean;
 };
 
 export type SubmitSignupResponseData = {

@@ -4,6 +4,7 @@ import { type PageRoutes } from '@/lib/components/layout/menu-route-wrapper/type
 import { ModalProvider } from '@/lib/providers/modal';
 
 const ClientListPage = React.lazy(() => import('./app-views/list'));
+const ClientDetailPage = React.lazy(() => import('./app-views/view'));
 
 export const clientPages: PageRoutes = [
   {
@@ -13,6 +14,11 @@ export const clientPages: PageRoutes = [
         <ClientListPage />
       </ModalProvider>
     ),
+    accessKey: 'BORROWER',
+  },
+  {
+    path: '/view/:id',
+    element: <ClientDetailPage />,
     accessKey: 'BORROWER',
   },
 ];

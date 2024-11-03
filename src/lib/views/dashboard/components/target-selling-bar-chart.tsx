@@ -1,7 +1,7 @@
 import { Column } from '@ant-design/plots';
 import { DatePicker, Flex, Typography } from 'antd';
 
-import { InputItem } from '@/lib/components/data-entry/input-item';
+import { ResponsiveCol } from '@/lib/components/layout/responsive-col';
 
 const data = [
   {
@@ -66,9 +66,9 @@ export const TargetSellingBarChart = () => {
     >
       <Flex align="center" justify="space-between" style={{ marginBottom: 16 }}>
         <Typography.Title level={4}>Target Penjualan</Typography.Title>
-        <InputItem>
+        <ResponsiveCol>
           <DatePicker picker="month" />
-        </InputItem>
+        </ResponsiveCol>
       </Flex>
       <Column
         height={193}
