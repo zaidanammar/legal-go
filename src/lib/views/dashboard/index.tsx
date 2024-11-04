@@ -78,22 +78,28 @@ const DashboardPage = () => {
                 <Flex vertical gap={16}>
                   <DashboardBox
                     title="Total Kunjungan"
-                    value={dashboardData?.total_customers.total_customer ?? 0}
+                    value={
+                      dashboardData?.total_order_client.total_customer ?? 0
+                    }
                     counterValue={{
                       corporate:
-                        dashboardData?.total_customers.company_customer ?? 0,
+                        dashboardData?.total_order_client.company_customer ?? 0,
                       individual:
-                        dashboardData?.total_customers.individual_customer ?? 0,
+                        dashboardData?.total_order_client.individual_customer ??
+                        0,
                     }}
                   />
                   <DashboardBox
                     title="Total Klien Memesan"
-                    value={dashboardData?.total_customers.total_customer ?? 0}
+                    value={
+                      dashboardData?.total_order_client.total_customer ?? 0
+                    }
                     counterValue={{
                       corporate:
-                        dashboardData?.total_customers.company_customer ?? 0,
+                        dashboardData?.total_order_client.company_customer ?? 0,
                       individual:
-                        dashboardData?.total_customers.individual_customer ?? 0,
+                        dashboardData?.total_order_client.individual_customer ??
+                        0,
                     }}
                   />
                 </Flex>

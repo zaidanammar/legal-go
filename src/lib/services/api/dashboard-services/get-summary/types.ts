@@ -11,7 +11,7 @@ export type GetDashboardSummaryQueryParams = {
 export type GetDashboardSummaryResponseData = {
   account_receivables: number;
   top_5_cases: Array<Top5Case>;
-  total_customers: TotalCustomers;
+  total_order_client: TotalCustomers;
   total_transaction: number;
   total_visitors: number;
 };
