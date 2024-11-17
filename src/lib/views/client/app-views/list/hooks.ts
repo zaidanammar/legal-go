@@ -33,10 +33,13 @@ export const useClientListPage = () => {
   const { response: masterDataList, isLoading: isLoadingMasterDataList } =
     useGetMasterDataList();
 
-  const { response: clientListData, isLoading: isLoadingClientList } =
-    useGetClientList({
-      queryParams,
-    });
+  const {
+    response: clientListData,
+    isLoading: isLoadingClientList,
+    mutate: refreshClientList,
+  } = useGetClientList({
+    queryParams,
+  });
 
   const data = useMemo(
     () =>
@@ -81,6 +84,7 @@ export const useClientListPage = () => {
     selectedCaseID,
     setSelectedCaseID,
     masterDataList,
+    refreshClientList,
   };
 };
 

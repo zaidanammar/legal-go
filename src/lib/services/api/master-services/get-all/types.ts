@@ -12,6 +12,7 @@ export type MasterDataEntry = {
   user_statuses: Array<MasterDataListEntry>;
   user_types: Array<MasterDataListEntry>;
   case_types: Array<MasterDataListEntry>;
+  service_types: Array<MasterDataListEntry>;
 };
 
 export type MasterDataListEntry = {

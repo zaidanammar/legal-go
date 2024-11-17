@@ -37,6 +37,16 @@ export const UpsertClientForm = () => {
                 scheduled_at: '',
               },
             ],
+            payment: {
+              sub_payments: [
+                {
+                  service_name: '',
+                  service_type: '',
+                  price: 0,
+                  delivery_date: '',
+                },
+              ],
+            },
           }}
         >
           <Flex

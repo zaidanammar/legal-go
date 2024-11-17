@@ -11,17 +11,22 @@ import {
   Typography,
 } from 'antd';
 
+import { type AppFormItemProps } from '@/lib/components/data-entry/app-form-item';
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
-import { DATE_FORMAT_YYYY_MM_DD } from '@/lib/constants/date';
 import { useViewModelContext } from '@/lib/providers/view-model';
 import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
-import { dateFormatter } from '@/lib/utils/date/date-formatter';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep4 = () => {
-  const { form, setCurrentStep, picOptions, selectedCaseID, submitUpsertCase } =
-    useViewModelContext<UpsertClientFormViewModel>();
+  const {
+    form,
+    setCurrentStep,
+    picOptions,
+    selectedCaseID,
+    submitUpsertCase,
+    serviceTypeOptions,
+  } = useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep4 = async () => {
     await form.validateFields();
@@ -31,11 +36,6 @@ export const UpsertClientFormStep4 = () => {
       case_actions: formValues.case_actions.map((item) => ({
         ...item,
         case_id: selectedCaseID ?? '',
-        scheduled_at: dateFormatter({
-          date: item.scheduled_at,
-          format: DATE_FORMAT_YYYY_MM_DD,
-          fallback: '',
-        }),
       })),
     };
 
@@ -78,7 +78,9 @@ export const UpsertClientFormStep4 = () => {
                       form={form}
                       fullWidth
                       label="Jasa Hukum"
-                      name={['case_actions', field.name, 'service_name']}
+                      name={
+                        [field.name, 'service_name'] as AppFormItemProps['name']
+                      }
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -92,7 +94,9 @@ export const UpsertClientFormStep4 = () => {
                       form={form}
                       fullWidth
                       label="Tipe Jasa"
-                      name={['case_actions', field.name, 'service_type']}
+                      name={
+                        [field.name, 'service_type'] as AppFormItemProps['name']
+                      }
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -102,23 +106,14 @@ export const UpsertClientFormStep4 = () => {
                     >
                       <SearchableSelect
                         placeholder="Pilih Tipe Jasa"
-                        options={[
-                          {
-                            label: 'Tipe 1',
-                            value: 'Tipe 1',
-                          },
-                          {
-                            label: 'Tipe 2',
-                            value: 'Tipe 2',
-                          },
-                        ]}
+                        options={serviceTypeOptions}
                       />
                     </InputItem>
                     <InputItem
                       form={form}
                       fullWidth
                       label="PIC"
-                      name={['case_actions', field.name, 'pic_id']}
+                      name={[field.name, 'pic_id'] as AppFormItemProps['name']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -135,7 +130,9 @@ export const UpsertClientFormStep4 = () => {
                       form={form}
                       fullWidth
                       label="Schedule"
-                      name={['case_actions', field.name, 'scheduled_at']}
+                      name={
+                        [field.name, 'scheduled_at'] as AppFormItemProps['name']
+                      }
                       wrapperProps={{ span: 24, lg: 4 }}
                       rules={[
                         {

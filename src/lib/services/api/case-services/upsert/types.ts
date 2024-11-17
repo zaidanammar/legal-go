@@ -37,11 +37,14 @@ export type CaseAction = {
   scheduled_at: string;
 };
 
-type Payment = {
+export type Payment = {
+  case_id?: string;
   payment_term: string;
   payment_method_id: string;
   discount: number;
-  subpayments: Array<Subpayment>;
+  sub_payments: Array<Subpayment>;
+  sub_total: number;
+  is_send_email: boolean;
 };
 
 type Subpayment = {

@@ -1,18 +1,59 @@
-import { Button, Checkbox, Col, Flex, Typography } from 'antd';
+import { DeleteFilled, PlusCircleOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Checkbox,
+  Col,
+  DatePicker,
+  Flex,
+  Form,
+  Input,
+  message,
+  Row,
+  Typography,
+} from 'antd';
+import { useMemo } from 'react';
 
 import { FormatNumeric } from '@/lib/components/data-display/format-numeric';
+import { type AppFormItemProps } from '@/lib/components/data-entry/app-form-item';
+import { InputItem } from '@/lib/components/data-entry/input-item';
+import { NumericFormatInput } from '@/lib/components/data-entry/numeric-format-input';
+import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
 import { useViewModelContext } from '@/lib/providers/view-model';
+import { type SubmitUpsertCaseRequest } from '@/lib/services/api/case-services/upsert/types';
 import { type UpsertClientFormViewModel } from '@/lib/views/client/app-views/list/components/upsert-client-form/hooks';
 
 export const UpsertClientFormStep8 = () => {
-  const { form, setCurrentStep } =
-    useViewModelContext<UpsertClientFormViewModel>();
+  const {
+    form,
+    serviceTypeOptions,
+    paymentMethodOptions,
+    submitUpsertCase,
+    selectedCaseID,
+    handleCloseModal,
+    refreshClientList,
+  } = useViewModelContext<UpsertClientFormViewModel>();
+
+  const subtotal = Form.useWatch(['payment', 'sub_total'], form) ?? 0;
+  const discount = Form.useWatch(['payment', 'discount'], form) ?? 0;
+
+  const total = useMemo(() => {
+    return subtotal - discount;
+  }, [discount, subtotal]);
 
   const handleSubmitFormStep8 = async () => {
     await form.validateFields();
-    // const values = form.getFieldsValue();
+    const formValues = form.getFieldsValue();
 
-    setCurrentStep(7);
+    const payload: Partial<SubmitUpsertCaseRequest> = {
+      payment: {
+        case_id: selectedCaseID ?? '',
+        ...formValues.payment,
+      },
+    };
+    await submitUpsertCase(payload);
+    handleCloseModal();
+    refreshClientList();
+    message.success('Berhasil menyimpan data');
   };
 
   return (
@@ -20,47 +61,42 @@ export const UpsertClientFormStep8 = () => {
       <Typography.Title level={4} style={{ color: '#7D848C' }}>
         Invoice
       </Typography.Title>
-      {/* <Row gutter={24}>
+      <Row gutter={24}>
         <InputItem
+          form={form}
+          fullWidth
           required
-          name="termin"
+          name={['payment', 'payment_term']}
           label="Termin"
           rules={[{ required: true }]}
-          wrapperProps={{ span: 24, lg: 12 }}
+          wrapperProps={{ span: 24, md: 12 }}
         >
           <Input placeholder="Masukkan Jasa Hukum" />
         </InputItem>
         <InputItem
+          form={form}
+          fullWidth
           required
-          name="Pembayaran"
-          label="payment_type"
+          name={['payment', 'payment_method_id']}
+          label="Pembayaran"
           rules={[{ required: true }]}
-          wrapperProps={{ span: 24, lg: 12 }}
+          wrapperProps={{ span: 24, md: 12 }}
         >
           <SearchableSelect
-            placeholder="Pilih Tipe Jasa"
-            options={[
-              {
-                label: 'Tipe 1',
-                value: 'Tipe 1',
-              },
-              {
-                label: 'Tipe 2',
-                value: 'Tipe 2',
-              },
-            ]}
+            placeholder="Pilih Metode Pembayaran"
+            options={paymentMethodOptions}
           />
         </InputItem>
       </Row>
       <Row>
-        <Form.List name="formation">
+        <Form.List name={['payment', 'sub_payments']}>
           {(fields, { add, remove }) => {
             const handleAdd = () => {
               const newRow = {
-                legal_services: '',
-                legal_services_type: '',
-                legal_services_pic: '',
-                legal_services_schedule: '',
+                service_name: '',
+                service_type: '',
+                price: 0,
+                delivery_date: '',
               };
               add(newRow);
             };
@@ -70,12 +106,20 @@ export const UpsertClientFormStep8 = () => {
             };
 
             return (
-              <div>
+              <div
+                style={{
+                  width: '100%',
+                }}
+              >
                 {fields.map((field) => (
                   <Row key={field.key} gutter={16} align="middle">
                     <InputItem
+                      form={form}
+                      fullWidth
                       label="Jasa Hukum"
-                      name={[field.name, 'legal_services']}
+                      name={
+                        [field.name, 'service_name'] as AppFormItemProps['name']
+                      }
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -86,8 +130,12 @@ export const UpsertClientFormStep8 = () => {
                       <Input placeholder="Masukkan Jasa Hukum" />
                     </InputItem>
                     <InputItem
+                      form={form}
+                      fullWidth
                       label="Tipe Jasa"
-                      name={[field.name, 'legal_services_type']}
+                      name={
+                        [field.name, 'service_type'] as AppFormItemProps['name']
+                      }
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -97,21 +145,14 @@ export const UpsertClientFormStep8 = () => {
                     >
                       <SearchableSelect
                         placeholder="Pilih Tipe Jasa"
-                        options={[
-                          {
-                            label: 'Tipe 1',
-                            value: 'Tipe 1',
-                          },
-                          {
-                            label: 'Tipe 2',
-                            value: 'Tipe 2',
-                          },
-                        ]}
+                        options={serviceTypeOptions}
                       />
                     </InputItem>
                     <InputItem
-                      label="PIC"
-                      name={[field.name, 'legal_services_pic']}
+                      form={form}
+                      fullWidth
+                      label="Biaya"
+                      name={[field.name, 'price'] as AppFormItemProps['name']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -119,23 +160,18 @@ export const UpsertClientFormStep8 = () => {
                         },
                       ]}
                     >
-                      <SearchableSelect
-                        placeholder="Pilih PIC"
-                        options={[
-                          {
-                            label: 'PIC 1',
-                            value: 'PIC 1',
-                          },
-                          {
-                            label: 'PIC 2',
-                            value: 'PIC 2',
-                          },
-                        ]}
-                      />
+                      <NumericFormatInput placeholder="Masukkan Biaya" />
                     </InputItem>
                     <InputItem
-                      label="Schedule"
-                      name={[field.name, 'legal_services_schedule']}
+                      form={form}
+                      fullWidth
+                      label="Delivery"
+                      name={
+                        [
+                          field.name,
+                          'delivery_date',
+                        ] as AppFormItemProps['name']
+                      }
                       wrapperProps={{ span: 24, lg: 4 }}
                       rules={[
                         {
@@ -172,10 +208,12 @@ export const UpsertClientFormStep8 = () => {
         </Form.List>
       </Row>
 
-      <Row gutter={24}>
+      <Row gutter={24} style={{ marginTop: 16 }}>
         <InputItem
+          form={form}
           required
-          name="subtotal"
+          fullWidth
+          name={['payment', 'sub_total']}
           label="Subtotal"
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
@@ -183,25 +221,38 @@ export const UpsertClientFormStep8 = () => {
           <NumericFormatInput placeholder="Masukkan subtotal" />
         </InputItem>
         <InputItem
-          required
-          name="discount"
+          form={form}
+          fullWidth
+          name={['payment', 'discount']}
           label="Potongan"
-          rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
           <NumericFormatInput placeholder="Masukkan Potongan" />
         </InputItem>
-      </Row> */}
-      <Flex justify="space-between" align="center" style={{ marginTop: 24 }}>
+      </Row>
+      <Flex justify="space-between" align="center" style={{ marginTop: 16 }}>
         <Col>
           <Typography.Text>Total</Typography.Text>
-          <Typography.Title level={3}>
-            <FormatNumeric value={200000} />
+          <Typography.Title
+            level={2}
+            style={{
+              color: '#4C5CA0',
+              fontWeight: 'bold',
+            }}
+          >
+            <FormatNumeric value={total || 0} />
           </Typography.Title>
         </Col>
-        <Col>
+
+        <InputItem
+          form={form}
+          fullWidth
+          wrapperProps={{ span: 24, lg: 8 }}
+          name={['payment', 'is_send_email']}
+          valuePropName="checked"
+        >
           <Checkbox>Kirim Invoice ke Email Klien</Checkbox>
-        </Col>
+        </InputItem>
       </Flex>
 
       <Flex justify="end" style={{ marginTop: 24 }}>

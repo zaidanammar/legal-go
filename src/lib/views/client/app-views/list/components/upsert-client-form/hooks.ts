@@ -17,6 +17,7 @@ export const useUpsertClientForm = () => {
     selectedCaseID,
     setSelectedCaseID,
     masterDataList,
+    refreshClientList,
   } = useViewModelContext<ClientListPageViewModel>();
 
   const { form } = useAppForm<UpsertClientFormType>();
@@ -60,6 +61,20 @@ export const useUpsertClientForm = () => {
       value: item.value,
     }));
   }, [masterDataList?.case_types]);
+
+  const serviceTypeOptions = useMemo(() => {
+    return (masterDataList?.service_types ?? []).map((item) => ({
+      label: item.value,
+      value: item.value,
+    }));
+  }, [masterDataList?.service_types]);
+
+  const paymentMethodOptions = useMemo(() => {
+    return (masterDataList?.payment_methods ?? []).map((item) => ({
+      label: item.value,
+      value: item.value,
+    }));
+  }, [masterDataList?.payment_methods]);
 
   const picOptions = useMemo(() => {
     return (clientListData?.rows ?? []).map((item) => ({
@@ -114,6 +129,9 @@ export const useUpsertClientForm = () => {
     selectedCaseID,
     setSelectedCaseID,
     picOptions,
+    serviceTypeOptions,
+    paymentMethodOptions,
+    refreshClientList,
   };
 };
 
