@@ -2,7 +2,7 @@ import { Form, type FormInstance, type FormItemProps } from 'antd';
 import { type StoreValue, type NamePath } from 'antd/es/form/interface';
 
 export type AppFormItemProps<T = unknown> = {
-  form: FormInstance<T>;
+  form?: FormInstance<T>;
   name?: NamePath<T>;
   showWhen?: { key: keyof T; value: StoreValue };
 } & Omit<FormItemProps, 'name'>;

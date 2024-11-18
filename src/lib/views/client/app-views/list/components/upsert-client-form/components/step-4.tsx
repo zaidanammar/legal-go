@@ -11,7 +11,6 @@ import {
   Typography,
 } from 'antd';
 
-import { type AppFormItemProps } from '@/lib/components/data-entry/app-form-item';
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
 import { useViewModelContext } from '@/lib/providers/view-model';
@@ -75,12 +74,9 @@ export const UpsertClientFormStep4 = () => {
                 {fields.map((field) => (
                   <Row key={field.key} gutter={16} align="middle">
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Jasa Hukum"
-                      name={
-                        [field.name, 'service_name'] as AppFormItemProps['name']
-                      }
+                      name={[field.name, 'service_name']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -91,12 +87,9 @@ export const UpsertClientFormStep4 = () => {
                       <Input placeholder="Masukkan Jasa Hukum" />
                     </InputItem>
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Tipe Jasa"
-                      name={
-                        [field.name, 'service_type'] as AppFormItemProps['name']
-                      }
+                      name={[field.name, 'service_type']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -110,10 +103,9 @@ export const UpsertClientFormStep4 = () => {
                       />
                     </InputItem>
                     <InputItem
-                      form={form}
                       fullWidth
                       label="PIC"
-                      name={[field.name, 'pic_id'] as AppFormItemProps['name']}
+                      name={[field.name, 'pic_id']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -127,12 +119,9 @@ export const UpsertClientFormStep4 = () => {
                       />
                     </InputItem>
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Schedule"
-                      name={
-                        [field.name, 'scheduled_at'] as AppFormItemProps['name']
-                      }
+                      name={[field.name, 'scheduled_at']}
                       wrapperProps={{ span: 24, lg: 4 }}
                       rules={[
                         {
