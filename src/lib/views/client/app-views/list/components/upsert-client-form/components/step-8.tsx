@@ -14,7 +14,6 @@ import {
 import { useMemo } from 'react';
 
 import { FormatNumeric } from '@/lib/components/data-display/format-numeric';
-import { type AppFormItemProps } from '@/lib/components/data-entry/app-form-item';
 import { InputItem } from '@/lib/components/data-entry/input-item';
 import { NumericFormatInput } from '@/lib/components/data-entry/numeric-format-input';
 import { SearchableSelect } from '@/lib/components/data-entry/searchable-select';
@@ -114,12 +113,9 @@ export const UpsertClientFormStep8 = () => {
                 {fields.map((field) => (
                   <Row key={field.key} gutter={16} align="middle">
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Jasa Hukum"
-                      name={
-                        [field.name, 'service_name'] as AppFormItemProps['name']
-                      }
+                      name={[field.name, 'service_name']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -130,12 +126,9 @@ export const UpsertClientFormStep8 = () => {
                       <Input placeholder="Masukkan Jasa Hukum" />
                     </InputItem>
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Tipe Jasa"
-                      name={
-                        [field.name, 'service_type'] as AppFormItemProps['name']
-                      }
+                      name={[field.name, 'service_type']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -149,10 +142,9 @@ export const UpsertClientFormStep8 = () => {
                       />
                     </InputItem>
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Biaya"
-                      name={[field.name, 'price'] as AppFormItemProps['name']}
+                      name={[field.name, 'price']}
                       wrapperProps={{ span: 24, lg: 6 }}
                       rules={[
                         {
@@ -163,15 +155,9 @@ export const UpsertClientFormStep8 = () => {
                       <NumericFormatInput placeholder="Masukkan Biaya" />
                     </InputItem>
                     <InputItem
-                      form={form}
                       fullWidth
                       label="Delivery"
-                      name={
-                        [
-                          field.name,
-                          'delivery_date',
-                        ] as AppFormItemProps['name']
-                      }
+                      name={[field.name, 'delivery_date']}
                       wrapperProps={{ span: 24, lg: 4 }}
                       rules={[
                         {
