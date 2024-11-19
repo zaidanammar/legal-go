@@ -1,3 +1,5 @@
+import { type Dayjs } from 'dayjs';
+
 import { type User } from '@/lib/models/api/user';
 
 export type CaseEntry = {
@@ -25,7 +27,7 @@ type CaseAction = {
   service_type: string;
   pic_id: string;
   pic: User;
-  scheduled_at: string;
+  scheduled_at: Dayjs;
 };
 
 type Payment = {

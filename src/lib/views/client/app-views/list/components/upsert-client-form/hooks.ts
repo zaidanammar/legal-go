@@ -105,6 +105,13 @@ export const useUpsertClientForm = () => {
         summary: caseDetailData?.summary,
         type: caseDetailData?.type,
       },
+      case_actions: caseDetailData.case_actions.map((item) => ({
+        case_id: item.case_id,
+        pic_id: item.pic_id,
+        scheduled_at: dayjs(item.scheduled_at),
+        service_name: item.service_name,
+        service_type: item.service_type,
+      })),
     });
   }, [caseDetailData, form]);
 

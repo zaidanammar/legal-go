@@ -34,7 +34,7 @@ export type CaseAction = {
   service_name: string;
   service_type: string;
   pic_id: string;
-  scheduled_at: string;
+  scheduled_at: Dayjs;
 };
 
 export type Payment = {
