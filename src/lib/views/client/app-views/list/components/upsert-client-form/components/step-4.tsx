@@ -25,6 +25,7 @@ export const UpsertClientFormStep4 = () => {
     selectedCaseID,
     submitUpsertCase,
     serviceTypeOptions,
+    caseDetailData,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep4 = async () => {
@@ -32,10 +33,18 @@ export const UpsertClientFormStep4 = () => {
     const formValues = form.getFieldsValue();
 
     const payload: Partial<SubmitUpsertCaseRequest> = {
-      case_actions: formValues.case_actions.map((item) => ({
+      case_actions: formValues.case_actions.map((item, index) => ({
         ...item,
+        ...(caseDetailData?.case_actions?.[index]?.case_action_id
+          ? {
+              case_action_id: caseDetailData.case_actions[index].case_action_id,
+            }
+          : {}),
         case_id: selectedCaseID ?? '',
       })),
+      case: {
+        case_id: selectedCaseID ?? '',
+      },
     };
 
     await submitUpsertCase(payload);

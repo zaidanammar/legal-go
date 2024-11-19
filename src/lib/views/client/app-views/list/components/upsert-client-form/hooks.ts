@@ -139,6 +139,7 @@ export const useUpsertClientForm = () => {
     serviceTypeOptions,
     paymentMethodOptions,
     refreshClientList,
+    caseDetailData,
   };
 };
 
