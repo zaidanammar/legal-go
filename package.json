@@ -18,13 +18,13 @@
     "format": "prettier --write src",
     "up-interactive": "pnpm up -i",
     "up-latest": "pnpm up-interactive -L",
-    "release": "commit-and-tag-version",
     "prepare": "husky",
     "knip": "knip"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@ant-design/plots": "1.2.5",
+    "@ckeditor/ckeditor5-react": "^9.3.1",
     "@fontsource-variable/noto-sans": "^5.0.5",
     "@fontsource-variable/plus-jakarta-sans": "^5.0.21",
     "antd": "^5.19.2",
@@ -32,6 +32,7 @@
     "array-move": "^4.0.0",
     "axios": "^1.7.4",
     "browser-image-compression": "^2.0.2",
+    "ckeditor5": "43.3.1",
     "dayjs": "^1.11.11",
     "lodash": "^4.17.21",
     "million": "3.1.11",

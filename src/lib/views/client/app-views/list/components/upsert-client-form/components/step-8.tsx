@@ -30,10 +30,17 @@ export const UpsertClientFormStep8 = () => {
     selectedCaseID,
     handleCloseModal,
     refreshClientList,
+    isLoadingSubmitUpsertCase,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
-  const subtotal = Form.useWatch(['payment', 'sub_total'], form) ?? 0;
   const discount = Form.useWatch(['payment', 'discount'], form) ?? 0;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fee = Form.useWatch(['payment', 'sub_payments'], form) ?? [];
+
+  const subtotal = useMemo(() => {
+    return fee ? fee.reduce((a, b) => a + b.price, 0) : 0;
+  }, [fee]);
 
   const total = useMemo(() => {
     return subtotal - discount;
@@ -199,12 +206,15 @@ export const UpsertClientFormStep8 = () => {
           form={form}
           required
           fullWidth
-          name={['payment', 'sub_total']}
           label="Subtotal"
           rules={[{ required: true }]}
           wrapperProps={{ span: 24, lg: 12 }}
         >
-          <NumericFormatInput placeholder="Masukkan subtotal" />
+          <NumericFormatInput
+            placeholder="Masukkan subtotal"
+            disabled
+            value={subtotal}
+          />
         </InputItem>
         <InputItem
           form={form}
@@ -242,7 +252,11 @@ export const UpsertClientFormStep8 = () => {
       </Flex>
 
       <Flex justify="end" style={{ marginTop: 24 }}>
-        <Button onClick={handleSubmitFormStep8} type="primary">
+        <Button
+          type="primary"
+          onClick={handleSubmitFormStep8}
+          loading={isLoadingSubmitUpsertCase}
+        >
           Finish
         </Button>
       </Flex>

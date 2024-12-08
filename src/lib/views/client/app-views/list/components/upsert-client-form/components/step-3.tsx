@@ -49,8 +49,8 @@ export const UpsertClientFormStep3 = () => {
 
       <Flex justify="end" style={{ marginTop: 24 }}>
         <Button
-          onClick={handleSubmitFormStep3}
           type="primary"
+          onClick={handleSubmitFormStep3}
           loading={isLoadingSubmitUpsertCase}
         >
           Simpan Data

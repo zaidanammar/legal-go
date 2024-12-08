@@ -26,6 +26,7 @@ export const UpsertClientFormStep4 = () => {
     submitUpsertCase,
     serviceTypeOptions,
     caseDetailData,
+    isLoadingSubmitUpsertCase,
   } = useViewModelContext<UpsertClientFormViewModel>();
 
   const handleSubmitFormStep4 = async () => {
@@ -168,7 +169,11 @@ export const UpsertClientFormStep4 = () => {
       </Row>
 
       <Flex justify="end" style={{ marginTop: 24 }}>
-        <Button onClick={handleSubmitFormStep4} type="primary">
+        <Button
+          type="primary"
+          onClick={handleSubmitFormStep4}
+          loading={isLoadingSubmitUpsertCase}
+        >
           Simpan Data
         </Button>
       </Flex>

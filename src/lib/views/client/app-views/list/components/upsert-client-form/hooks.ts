@@ -7,6 +7,7 @@ import { useViewModelContext } from '@/lib/providers/view-model';
 import { useGetCaseDetail } from '@/lib/services/api/case-services/get-detail';
 import { useSubmitUpsertCase } from '@/lib/services/api/case-services/upsert';
 import { useGetClientList } from '@/lib/services/api/client-services/get-list';
+import { convertDocRefsToUploadInputValues } from '@/lib/utils/input/conversion/convert-doc-refs-to-upload-input-values';
 import { type UpsertClientFormType } from '@/lib/views/client/app-views/list/components/upsert-client-form/types';
 import { type ClientListPageViewModel } from '@/lib/views/client/app-views/list/hooks';
 
@@ -83,8 +84,12 @@ export const useUpsertClientForm = () => {
     }));
   }, [clientListData]);
 
-  const handleInitiateFormValues = useCallback(() => {
+  const handleInitiateFormValues = useCallback(async () => {
     if (!caseDetailData) return;
+
+    const files = await convertDocRefsToUploadInputValues({
+      references: caseDetailData.files,
+    });
 
     form.setFieldsValue({
       client: {
@@ -112,6 +117,7 @@ export const useUpsertClientForm = () => {
         service_name: item.service_name,
         service_type: item.service_type,
       })),
+      attachments: files,
     });
   }, [caseDetailData, form]);
 

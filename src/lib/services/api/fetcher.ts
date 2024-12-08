@@ -20,8 +20,11 @@ export type APIFetcherParams = APIFetcherOriginRespParams;
 export const fetcher = async <ResponseDataType>({
   path,
   config,
-}: APIFetcherParams) =>
-  fetcherOriginResp<APIResponse<ResponseDataType>>({
-    path,
+  rootPath,
+}: APIFetcherParams) => {
+  const fetchPath = rootPath ? `${rootPath}${path}` : path;
+  return fetcherOriginResp<APIResponse<ResponseDataType>>({
+    path: fetchPath,
     config,
   }).then((res) => res.data.data);
+};

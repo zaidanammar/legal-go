@@ -29,6 +29,12 @@ export const UpsertClientForm = () => {
           form={form}
           layout="vertical"
           initialValues={{
+            signatures: [
+              {
+                name: '',
+                role: '',
+              },
+            ],
             case_actions: [
               {
                 service_name: '',

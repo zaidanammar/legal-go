@@ -1,6 +1,6 @@
 import { type UploadFile } from 'antd';
 
-type UploadInputValue = UploadFile & {
+export type UploadInputValue = UploadFile & {
   originFileObj?: Blob;
 };
 

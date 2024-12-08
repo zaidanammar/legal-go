@@ -1,6 +1,8 @@
 import { type Dayjs } from 'dayjs';
 
 import { type User } from '@/lib/models/api/user';
+import { type Signature } from '@/lib/services/api/case-services/upsert/types';
+import { type FileReference } from '@/lib/services/api/file-services/types';
 
 export type CaseEntry = {
   case_id: string;
@@ -18,6 +20,9 @@ export type CaseEntry = {
   user: User;
   pic_id: string;
   pic: User;
+  invoice: string;
+  files: Array<FileReference>;
+  signatures: Array<Signature>;
 };
 
 type CaseAction = {

@@ -1,12 +1,22 @@
 import { type Dayjs } from 'dayjs';
 
 import { type GetCaseDetailResponseData } from '@/lib/services/api/case-services/get-detail/types';
+import { type FileReference } from '@/lib/services/api/file-services/types';
 
 export type SubmitUpsertCaseRequest = {
   client?: Client;
   case?: Partial<Case>;
   case_actions?: Array<CaseAction>;
   payment?: Payment;
+  invoice?: string;
+  attachments?: Array<FileReference>;
+  signatures?: Array<Signature>;
+};
+
+export type Signature = {
+  id: string;
+  name: string;
+  role: string;
 };
 
 export type Client = {
@@ -43,7 +53,6 @@ export type Payment = {
   payment_method_id: string;
   discount: number;
   sub_payments: Array<Subpayment>;
-  sub_total: number;
   is_send_email: boolean;
 };
 
