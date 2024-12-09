@@ -19,11 +19,13 @@ export const service = axios.create({
 
 const contentType = 'Content-Type';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 const getDefaultHeaders = () => {
   const { token } = useAuth.getState();
   return {
     ...DEFAULT_HEADERS,
     Authorization: token ? `Bearer ${token}` : undefined,
+    'ngrok-skip-browser-warning': '69420',
   };
 };
 
